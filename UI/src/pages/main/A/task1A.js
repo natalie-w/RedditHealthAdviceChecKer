@@ -59,8 +59,8 @@ function Task1AContainer() {
                 setCurrentImage(imageData[count].name);
                 setCurrentPrediction(imageData[count].outputA);
                 setCurrentTitle(imageData[count].title)
-                setCurrentPost(imageData[count].post)
                 setCurrentComment(imageData[count].comment)
+                setCurrentPost(imageData[count].post)
                 setTaskTime(Date.now())
                 setShowPrediction(false);
                 setShowSurvey(false);
@@ -157,8 +157,10 @@ function Task1AContainer() {
                 
 
                 <div className="img-frame">
-                    <p> <b> {currentTitle} </b> </p>
+                    <p> Post </p>
+                    <p> <b> {currentTitle} </b> </p> 
                     <p> {currentPost} </p>
+                    <p> Comment </p>
                     <p> {currentComment} </p>
                     <p> To check if the suggestion is dangerous, you can use our Reddit Health ChecKer bot by clicking "!healthadvicecheckbot".</p> 
 <input type="text" id="typedtext" placeholder="!healthadvicecheckbot" name="typedtext"></input>
