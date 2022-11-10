@@ -59,66 +59,27 @@ const SurveyContainer = () => {
       })
   } 
 
+  function newTabFinalSurvey() {
+        window.open(
+        "https://forms.gle/Vqqq2YsG55NiFhrQ6", "_blank");
+    }
+
 
 
   return (
     <div className="container"> 
-      <Form {...formItemLayout} layout='vertical'
-        name="validate_other"
-        onFinish={onFinish}
-        initialValues={{
-        }}
-      >
 
-        <div className="title"> Study survey</div>
-        <div className='text'> This is how you can create a questionnaire at the end of the experiment. </div>
+        <div className="title"> Study Survey</div>
+        <div className='text'> Thank you for your time, please click the button below and complete a post-survey about our bot.
 
-        <Form.Item 
-            name="Q1" 
-            label = {
-                <p style={{fontSize: "20px"}}> 1. How confident were you in your responses to complete the task?</p>}
-            rules={[{
-                    required: true,
-                  },
-                ]}>
-            <Radio.Group>
-                <Radio value="1" style={{fontSize: "18px"}}>Very unconfident</Radio>
-                <Radio value="2" style={{fontSize: "18px"}}>Unconfident</Radio>
-                <Radio value="3" style={{fontSize: "18px"}}>Average</Radio>
-                <Radio value="4" style={{fontSize: "18px"}}>Confident</Radio>
-                <Radio value="5" style={{fontSize: "18px"}}>Very confident</Radio>
-            </Radio.Group>
-        </Form.Item>
-        
-
-        <Form.Item 
-            name="Q2" 
-            label = {
-                <p style={{fontSize: "20px"}}> 2. How successful do you think you were you in accomplishing what you were asked to do? </p>}
-            rules={[{
-                    required: true,
-                  },
-                ]}>
-            <Radio.Group>
-                <Radio value="1" style={{fontSize: "18px"}}>Poor</Radio>
-                <Radio value="2" style={{fontSize: "18px"}}>Fair</Radio>
-                <Radio value="3" style={{fontSize: "18px"}}>Average</Radio>
-                <Radio value="4" style={{fontSize: "18px"}}>Good</Radio>
-                <Radio value="5" style={{fontSize: "18px"}}>Excellent</Radio>
-            </Radio.Group>
-        </Form.Item>
-
-
-
-         <Form.Item >
-         
-        <Button type="primary" htmlType="submit">
-        Submit
-        </Button>
-        </Form.Item>
-      </Form>
-      
+        <b> TODO: Update this link to a new final survey with no by case questions. </b> </div>
+             <Button className="btn-1"  onClick={newTabFinalSurvey}>
+               Post-Survey 
+       </Button>
     </div>
+
+    
+    
   );
 };
 export default SurveyContainer;
