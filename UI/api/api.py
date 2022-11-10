@@ -62,7 +62,7 @@ images = [
         'outputC': "🚨 HealthAdviceCheckBot here! 🚨 \n Based on my medical knowledge, I cannot confirm whether or not this is misinformation. We’ve thoroughly searched our database of misinformation, but haven’t found anything that contradicts the advice in the comment above. We encourage you to research on your own at https://www.nih.gov/. "},
         {'name': 'health_posts/earinfection.png', 'label': 'False', 
         "title": "Any tips on preventative measures for a UTI?",
-        'post': "see above",
+        'post': "Do you have any tips so that I won't get UTIs all the time?",
         "comment": "You can try cranberry juice or supplements. I don't know if it's proven exactly but it can't hurt - I have some cheap ones I take daily",
         'outputA': "🚨 HealthAdviceCheckBot here! 🚨 \n Based on my medical knowledge, I cannot confirm whether or not this is misinformation. We’ve thoroughly searched our database of misinformation, but haven’t found anything that contradicts the advice in the comment above. We encourage you to research on your own at https://www.nih.gov/. ",
         'outputB': "🚨 HealthAdviceCheckBot here! 🚨 \n Based on my medical knowledge, I cannot confirm whether or not this is misinformation. We’ve thoroughly searched our database of misinformation, but haven’t found anything that contradicts the advice in the comment above. We encourage you to research on your own at https://www.nih.gov/. ",
