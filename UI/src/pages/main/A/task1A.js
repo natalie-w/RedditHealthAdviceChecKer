@@ -17,6 +17,7 @@ function Task1AContainer() {
     const [currentPrediction, setCurrentPrediction] = useState("");
     const [imageCount, setImageCount] = useState(0);
     const [showPrediction, setShowPrediction] = useState(false);
+    const [showSurvey, setShowSurvey] = useState(false);
     const [taskTime, setTaskTime] = useState((Date.now() + 1000 * 1000));
     const [isOpen, setIsOpen] = useState(false);
     const [answeredQuestions, setAnsweredQuestions] = useState(false);
@@ -35,7 +36,7 @@ function Task1AContainer() {
     }
 
     const nextChange = () =>{
-        if (choice<1) {
+        if (!showSurvey) {
             alert("Please make sure to review the bot's output before trying to move on.");
         } else {
             let count = imageCount + 1;
@@ -59,6 +60,7 @@ function Task1AContainer() {
                 setCurrentPrediction(imageData[count].outputA);
                 setTaskTime(Date.now())
                 setShowPrediction(false);
+                setShowSurvey(false);
             }
         }
     }
@@ -97,6 +99,7 @@ function Task1AContainer() {
 
     const handlePredict=()=>{
         setShowPrediction(true);
+        setShowSurvey(true);
     };
 
         const checkboxHandler = () => {
@@ -156,10 +159,10 @@ function Task1AContainer() {
                     <p> {currentPost} </p>
                     <p> {currentComment} </p>
                     <p> To check if the suggestion is dangerous, you can use our Reddit Health ChecKer bot by clicking "!healthadvicecheckbot".</p> 
-
-            <Button className="btn-1"  onClick={()=>{handlePredict()}}>
-               !healthadvicecheckbot
-            </Button> 
+<input type="text" id="typedtext" placeholder="!healthadvicecheckbot" name="typedtext"></input>
+                    <Button className="btn-2" onClick={()=>{handlePredict()}}>
+                       Reply
+                    </Button> 
 
             { showPrediction ?
                 <PredictionContainer 
@@ -174,39 +177,21 @@ function Task1AContainer() {
             <div> </div>
 
 
-            <Button className="btn-1"  disabled={!showPrediction} onClick={togglePopup}>
-               Click Here When Done Reading Bot Output
-            </Button>
-
             
 
-    { isOpen && <Popup
-      content={<>
-        <b>Please click the button below and answer the questions before moving on.</b>
-        <div></div>
-      
-      <Button className="btn-1"  disabled={!showPrediction&!answeredQuestions} onClick={newTab}>
-               Questions
-            </Button>
-            </>
-  }
-      handleClose={togglePopup} />}
-
                 </div>
-                <p> {imageCount + 1} / {totalImages} Images</p>
+                <p> {imageCount + 1} / {totalImages} </p>
 
-                
 
+            </div>
+
+            <div className="right-column"> 
+            {showSurvey ? <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc2bYBWnfJDHVMm4bzyyZAckcDRnb4rTZ_XuPKrtObVVmNuEg/viewform?embedded=true" width="640" height="902" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe> : null}
       <div className="button-container"> 
                 <Button variant="btn btn-success"  style={{marginLeft:"70%"}}  onClick={nextChange}>
                     Next
                 </Button>
             </div>
-
-            </div>
-
-            <div className="right-column"> 
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc2bYBWnfJDHVMm4bzyyZAckcDRnb4rTZ_XuPKrtObVVmNuEg/viewform?embedded=true" width="640" height="2197" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
       </div>
 
             </div>
