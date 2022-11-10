@@ -143,47 +143,48 @@ function Task1AContainer() {
                     <img className="image-inner" src={baseImgUrl + currentImage}/>
                 </div>
                 <p> {imageCount + 1} / {totalImages} Images</p>
+                <div class="CommentBox">
+                    <div>Reply: 
+                        <input type="text" value="!healthadvicecheckbot"/>
+                    </div>
+                </div>
+                <p> To check if the suggestion is dangerous, you can use our Reddit Health ChecKer bot by clicking "!healthadvicecheckbot".</p> 
+
+                <Button className="btn-1"  onClick={()=>{handlePredict()}}>
+                   !healthadvicecheckbot
+                </Button> 
+
+                { showPrediction ?
+                    <PredictionContainer 
+                        currentPrediction={currentPrediction}
+                    />
+                :
+                    <>
+                    </>
+
+                }
+                <div> </div>
+                <Button className="btn-1"  disabled={!showPrediction} onClick={togglePopup}>
+                    Click Here When Done Reading Bot Output
+                </Button>
+
+                { isOpen && <Popup
+                      content={<>
+                        <b>Please click the button below and answer the questions before moving on.</b>
+                        <div></div>
+                      
+                      <Button className="btn-1"  disabled={!showPrediction&!answeredQuestions} onClick={newTab}>
+                               Questions
+                            </Button>
+                            </>
+                  }
+                      handleClose={togglePopup} />}
+
+
             </div>
 
-            <div className="right-column"> 
-            <p> To check if the suggestion is dangerous, you can use our Reddit Health ChecKer bot by clicking "!healthadvicecheckbot".</p> 
-
-            <Button className="btn-1"  onClick={()=>{handlePredict()}}>
-               !healthadvicecheckbot
-            </Button> 
-
-            { showPrediction ?
-                <PredictionContainer 
-                    currentPrediction={currentPrediction}
-                />
-            :
-                <>
-                </>
-
-            }
-
-            <div> </div>
-
-
-            <Button className="btn-1"  disabled={!showPrediction} onClick={togglePopup}>
-               Click Here When Done Reading Bot Output
-            </Button>
-
-    { isOpen && <Popup
-      content={<>
-        <b>Please click the button below and answer the questions before moving on.</b>
-        <div></div>
-      
-      <Button className="btn-1"  disabled={!showPrediction&!answeredQuestions} onClick={newTab}>
-               Questions
-            </Button>
-            </>
-  }
-      handleClose={togglePopup} />}
-
-
-            </div>
-
+  
+ 
             </div>
 
             <div className="button-container"> 
