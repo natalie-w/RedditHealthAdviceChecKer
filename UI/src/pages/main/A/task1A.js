@@ -11,6 +11,9 @@ function Task1AContainer() {
     const [choice, setChoice] = useState(0);
     const [imageData, setImageData] = useState([]);
     const [currentImage, setCurrentImage] = useState("");
+    const [currentTitle, setCurrentTitle] = useState("");
+    const [currentTitle, setCurrentTitle] = useState("");
+    const [currentTitle, setCurrentTitle] = useState("");
     const [currentPrediction, setCurrentPrediction] = useState("");
     const [imageCount, setImageCount] = useState(0);
     const [showPrediction, setShowPrediction] = useState(false);
@@ -59,6 +62,7 @@ function Task1AContainer() {
             }
         }
     }
+
 
     function newTab() {
             setAnsweredQuestions(true)
@@ -119,6 +123,8 @@ function Task1AContainer() {
             setImageData(data['imgs']);
             let image_name = data['imgs'][0].name
             setCurrentImage(image_name)
+            setCurrentTitle(data['imgs'][0].title)
+            console.log(data['imgs'][0])
             setCurrentPrediction(data['imgs'][0].outputA);
             setRender(true);
             setTaskTime(Date.now())
@@ -139,14 +145,17 @@ function Task1AContainer() {
 
             <div className="left-column"> 
                 <p> Here are the comments you find on Reddit:</p>
+                
+                <p> {currentTitle} </p>
+                <p> {currentPost} </p>
+                <p> {currentComment} </p>
+
                 <div className="img-frame">
                     <img className="image-inner" src={baseImgUrl + currentImage}/>
                 </div>
                 <p> {imageCount + 1} / {totalImages} Images</p>
-            </div>
 
-            <div className="right-column"> 
-            <p> To check if the suggestion is dangerous, you can use our Reddit Health ChecKer bot by clicking "!healthadvicecheckbot".</p> 
+                <p> To check if the suggestion is dangerous, you can use our Reddit Health ChecKer bot by clicking "!healthadvicecheckbot".</p> 
 
             <Button className="btn-1"  onClick={()=>{handlePredict()}}>
                !healthadvicecheckbot
@@ -169,6 +178,8 @@ function Task1AContainer() {
                Click Here When Done Reading Bot Output
             </Button>
 
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc2bYBWnfJDHVMm4bzyyZAckcDRnb4rTZ_XuPKrtObVVmNuEg/viewform?embedded=true" width="640" height="2197" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+
     { isOpen && <Popup
       content={<>
         <b>Please click the button below and answer the questions before moving on.</b>
@@ -181,15 +192,14 @@ function Task1AContainer() {
   }
       handleClose={togglePopup} />}
 
-
-            </div>
-
-            </div>
-
-            <div className="button-container"> 
+      <div className="button-container"> 
                 <Button variant="btn btn-success"  style={{marginLeft:"70%"}}  onClick={nextChange}>
                     Next
                 </Button>
+            </div>
+
+            </div>
+
             </div>
 
             </div>
