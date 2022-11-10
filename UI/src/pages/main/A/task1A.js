@@ -12,8 +12,8 @@ function Task1AContainer() {
     const [imageData, setImageData] = useState([]);
     const [currentImage, setCurrentImage] = useState("");
     const [currentTitle, setCurrentTitle] = useState("");
-    const [currentTitle, setCurrentTitle] = useState("");
-    const [currentTitle, setCurrentTitle] = useState("");
+    const [currentPost, setCurrentPost] = useState("");
+    const [currentComment, setCurrentComment] = useState("");
     const [currentPrediction, setCurrentPrediction] = useState("");
     const [imageCount, setImageCount] = useState(0);
     const [showPrediction, setShowPrediction] = useState(false);
@@ -124,6 +124,8 @@ function Task1AContainer() {
             let image_name = data['imgs'][0].name
             setCurrentImage(image_name)
             setCurrentTitle(data['imgs'][0].title)
+            setCurrentPost(data['imgs'][0].post)
+            setCurrentComment(data['imgs'][0].comment)
             console.log(data['imgs'][0])
             setCurrentPrediction(data['imgs'][0].outputA);
             setRender(true);
@@ -146,12 +148,12 @@ function Task1AContainer() {
             <div className="left-column"> 
                 <p> Here are the comments you find on Reddit:</p>
                 
-                <p> {currentTitle} </p>
-                <p> {currentPost} </p>
-                <p> {currentComment} </p>
+                
 
                 <div className="img-frame">
-                    <img className="image-inner" src={baseImgUrl + currentImage}/>
+                    <p> {currentTitle} </p>
+                <p> {currentPost} </p>
+                    <p> {currentComment} </p>
                 </div>
                 <p> {imageCount + 1} / {totalImages} Images</p>
 
