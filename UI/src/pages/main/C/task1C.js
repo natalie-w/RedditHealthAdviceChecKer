@@ -7,7 +7,7 @@ import "../main.css";
 
 import PredictionContainer from '../../../components/predictionContainer'
 
-function Task1AContainer() {
+function Task1CContainer() {
     const [choice, setChoice] = useState(0);
     const [imageData, setImageData] = useState([]);
     const [currentImage, setCurrentImage] = useState("");
@@ -53,8 +53,7 @@ function Task1AContainer() {
                 setChoice(0); 
                 setImageCount(count);
                 setCurrentImage(imageData[count].name);
-                setCurrentPrediction(imageData[count].output);
-                console.log(setImageData[count])
+                setCurrentPrediction(imageData[count].outputC);
                 setTaskTime(Date.now())
                 setShowPrediction(false);
             }
@@ -117,12 +116,10 @@ function Task1AContainer() {
         fetch('http://localhost:8080/imageInfo')
         .then(response => response.json())
         .then(data => {
-            console.log(data['imgs']);
             setImageData(data['imgs']);
             let image_name = data['imgs'][0].name
             setCurrentImage(image_name)
-            console.log(image_name)
-            setCurrentPrediction(data['imgs'][0].output);
+            setCurrentPrediction(data['imgs'][0].outputC);
             setRender(true);
             setTaskTime(Date.now())
         });
@@ -135,7 +132,7 @@ function Task1AContainer() {
        {render ?
 
             <div className="container">
-            <div className="title">Experiment A</div>
+            <div className="title">Experiment C</div>
             Please imagine you are scrolling through Reddit looking for a solution to a health problem you are currently experiencing.
 
             <div className="column-container"> 
@@ -207,4 +204,4 @@ function Task1AContainer() {
       );
 }
 
-export default Task1AContainer;
+export default Task1CContainer;

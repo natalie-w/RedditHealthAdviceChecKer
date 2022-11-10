@@ -51,7 +51,7 @@ function InstructionsContainer() {
 
         <div className="text"> 
             <Button variant="btn btn-success" onClick={training}>
-                Training (Not working right now)
+                Training (Not working right now but this is where we can have them to do the pre-survey and learn about reddit if we want them to)
             </Button>
         </div>
 
@@ -63,13 +63,13 @@ function InstructionsContainer() {
 
         <div className="text"> 
             <Button variant="btn btn-success" onClick={taskB}>
-                User Test B (Not working right now)
+                User Test B
             </Button>
         </div>
 
         <div className="text"> 
             <Button variant="btn btn-success" onClick={taskC}>
-                User Test C (Not working right now)
+                User Test C
             </Button>
         </div>
 

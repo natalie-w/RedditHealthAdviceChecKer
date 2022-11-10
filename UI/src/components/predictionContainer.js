@@ -7,7 +7,6 @@ import './style.css'
 function PredictionContainer({ currentPrediction }) {
     // store the prediction message to display 
     const [predMessage, setPredMessage] = useState("");
-    console.log('curr pred', currentPrediction)
     var renderedOutput = currentPrediction.split('/n').map(item => <div> <b> {item} </b> </div>);
 
     const handlePredict=()=>{
@@ -21,10 +20,6 @@ function PredictionContainer({ currentPrediction }) {
 
 
     }, []);
-
-    console.log("inside prediction containers")
-    console.log(currentPrediction)
-    console.log(currentPrediction.split('/n'))
 
     return (
         <div className="column-container">
