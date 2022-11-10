@@ -55,7 +55,7 @@ class Survey(db.Model):
 images = [
         {'name': 'health_posts/uti.png', 'label': 'False', 
         "title": "Gas or Appendicitis?",
-        'post': "post text",
+        'post': "🚨 ALERT! 🚨 \\n HealthAdviceCheckBot here! Based on our database of misinformation, we are 85% sure that the above comment is ❌FALSE!❌'",
         "comment": "comment text",
         'outputA': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! Here are the top three FALSE claims that match the potential misinformation above: /n ❌FALSE!❌  'Baking soda has been proven to cure UTIs.' /n ❌FALSE!❌  'Take 2 teaspoons of baking soda every hour to treat a UTI.' /n ❌FALSE!❌   'If you take baking soda, your UTI will be gone within 4 hours!!'",
         'outputB': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! Based on our database of misinformation, we are 85% sure that the above comment is ❌FALSE!❌",

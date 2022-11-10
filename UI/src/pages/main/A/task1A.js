@@ -58,6 +58,9 @@ function Task1AContainer() {
                 setImageCount(count);
                 setCurrentImage(imageData[count].name);
                 setCurrentPrediction(imageData[count].outputA);
+                setCurrentTitle(imageData[count].title)
+                setCurrentPost(imageData[count].post)
+                setCurrentComment(imageData[count].comment)
                 setTaskTime(Date.now())
                 setShowPrediction(false);
                 setShowSurvey(false);
@@ -129,7 +132,6 @@ function Task1AContainer() {
             setCurrentTitle(data['imgs'][0].title)
             setCurrentPost(data['imgs'][0].post)
             setCurrentComment(data['imgs'][0].comment)
-            console.log(data['imgs'][0])
             setCurrentPrediction(data['imgs'][0].outputA);
             setRender(true);
             setTaskTime(Date.now())
