@@ -45,11 +45,11 @@ h2{
 }
 
 .left-column{
-    width: 100%;
+    width: 50%;
     margin-left: 10px;
 }
 
 .right-column{
-    width: 0%;
+    width: 50%;
     margin-right: 100px;
 }

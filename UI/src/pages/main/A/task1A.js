@@ -146,18 +146,16 @@ function Task1AContainer() {
             <div className="column-container"> 
 
             <div className="left-column"> 
+            
                 <p> Here are the comments you find on Reddit:</p>
                 
                 
 
                 <div className="img-frame">
-                    <p> {currentTitle} </p>
-                <p> {currentPost} </p>
+                    <p> <b> {currentTitle} </b> </p>
+                    <p> {currentPost} </p>
                     <p> {currentComment} </p>
-                </div>
-                <p> {imageCount + 1} / {totalImages} Images</p>
-
-                <p> To check if the suggestion is dangerous, you can use our Reddit Health ChecKer bot by clicking "!healthadvicecheckbot".</p> 
+                    <p> To check if the suggestion is dangerous, you can use our Reddit Health ChecKer bot by clicking "!healthadvicecheckbot".</p> 
 
             <Button className="btn-1"  onClick={()=>{handlePredict()}}>
                !healthadvicecheckbot
@@ -180,7 +178,7 @@ function Task1AContainer() {
                Click Here When Done Reading Bot Output
             </Button>
 
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc2bYBWnfJDHVMm4bzyyZAckcDRnb4rTZ_XuPKrtObVVmNuEg/viewform?embedded=true" width="640" height="2197" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            
 
     { isOpen && <Popup
       content={<>
@@ -194,6 +192,11 @@ function Task1AContainer() {
   }
       handleClose={togglePopup} />}
 
+                </div>
+                <p> {imageCount + 1} / {totalImages} Images</p>
+
+                
+
       <div className="button-container"> 
                 <Button variant="btn btn-success"  style={{marginLeft:"70%"}}  onClick={nextChange}>
                     Next
@@ -202,9 +205,14 @@ function Task1AContainer() {
 
             </div>
 
+            <div className="right-column"> 
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc2bYBWnfJDHVMm4bzyyZAckcDRnb4rTZ_XuPKrtObVVmNuEg/viewform?embedded=true" width="640" height="2197" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+      </div>
+
             </div>
 
             </div>
+
 
         :
             <> 
