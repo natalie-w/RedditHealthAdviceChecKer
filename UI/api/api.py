@@ -57,7 +57,7 @@ images = [
         'outputA': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! Here are the top three FALSE claims that match the potential misinformation above: /n ❌FALSE!❌  'Baking soda has been proven to cure UTIs.' /n ❌FALSE!❌  'Take 2 teaspoons of baking soda every hour to treat a UTI.' /n ❌FALSE!❌   'If you take baking soda, your UTI will be gone within 4 hours!!'",
         'outputB': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! Based on our database of misinformation, we are 85% sure that the above comment is ❌FALSE!❌",
         'outputC': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! DO NOT DO THIS ADVICE!"},
-        {'name': 'health_posts/cold.png', 'label': 'False', 
+        {'name': 'health_posts/earinfection.png', 'label': 'False', 
         'outputA': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! Here are the top three FALSE claims that match the potential misinformation above: /n ❌FALSE!❌  'Debrox has been proven to cure ear infections.' /n ❌FALSE!❌  'Flushing or irrigating an infected ear will make swelling go down.' /n ❌FALSE!❌   'False statement 3'",
         'outputB': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! Based on our database of misinformation, we are 97% sure that the above comment is ❌FALSE!❌",
         'outputC': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! DO NOT DO THIS ADVICE!"}, 
@@ -73,7 +73,7 @@ images = [
         'outputA': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! Here are the top three FALSE claims that match the potential misinformation above: /n ❌FALSE!❌  'False statement 1.' /n ❌FALSE!❌  'False statement 2' /n ❌FALSE!❌   'False statement 3'",
         'outputB': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! Based on our database of misinformation, we are 82% sure that the above comment is ❌FALSE!❌",
         'outputC': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! DO NOT DO THIS ADVICE!"},
-        {'name': 'health_posts/earinfection.png', 'label': 'True', 
+        {'name': 'health_posts/cold.png', 'label': 'True', 
         'outputA': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! Here are the top three FALSE claims that match the potential misinformation above: /n ❌FALSE!❌  'False statement 1.' /n ❌FALSE!❌  'False statement 2' /n ❌FALSE!❌   'False statement 3'",
         'outputB': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! Based on our database of misinformation, we are 94% sure that the above comment is ❌FALSE!❌",
         'outputC': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! DO NOT DO THIS ADVICE!"}]

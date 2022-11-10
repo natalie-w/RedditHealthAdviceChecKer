@@ -7,7 +7,7 @@ import './style.css'
 function PredictionContainer({ currentPrediction }) {
     // store the prediction message to display 
     const [predMessage, setPredMessage] = useState("");
-    var renderedOutput = currentPrediction.split('/n').map(item => <div> <b> {item} </b> </div>);
+    var renderedOutput = currentPrediction.split('/n').map(item => <div> {item} </div>);
 
     const handlePredict=()=>{
         return true;
@@ -25,7 +25,7 @@ function PredictionContainer({ currentPrediction }) {
         <div className="column-container">
             <div className="prediction-container">
                 <div className="text"> 
-                    The bot responds with:
+                    <b>The bot responds with:</b>
 
                     <div>
                         {renderedOutput}
