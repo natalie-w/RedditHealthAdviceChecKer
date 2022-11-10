@@ -15,6 +15,7 @@
     margin-left: 5%;
     margin-right: 5%;
     margin-bottom: 10px;
+    white-space: pre-line;
 }
 
 h2{
@@ -27,11 +28,14 @@ h2{
 }
 
 .img-frame{
-    height: 250px;
-    width: 350px;
+/*    height: 500px;
+    width: 800px;
+*/    
+    width: 100%;
+    height:  100%;
     padding: 8px 8px;
     border: 3px solid #4472C4;
-    margin-left: calc(50% - 208px);
+    margin-left: 10px;
 }
 
 
@@ -41,11 +45,11 @@ h2{
 }
 
 .left-column{
-    width: 50%;
+    width: 075%;
     margin-left: 10px;
 }
 
 .right-column{
-    width: 50%;
-    margin-right: 10px;
+    width: 25%;
+    margin-right: 100px;
 }

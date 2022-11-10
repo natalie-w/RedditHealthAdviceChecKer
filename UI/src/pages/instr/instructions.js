@@ -4,23 +4,28 @@ import "./instructions.css";
 
 function InstructionsContainer() {
 
-    const [agree, setAgree] = useState(false);
+    
     const [task, setTask] = useState(0);
 
-    const checkboxHandler = () => {
-        setAgree(!agree);
+    // TODO: make something here in training
+    const training = () => {
+        let path = '/#/Task1C';
+        window.location.assign(path);
     }
 
-    const routeChange = () =>{ 
-        if (task % 2 === 0) {
-            let path = '/#/Main2'; 
-            window.location.assign(path);
-        } else {
-            let path = '/#/Main1'; 
-            window.location.assign(path);
-        }
+    const taskA = () => {
+        let path = '/#/Task1A';
+        window.location.assign(path);
+    }
 
+    const taskB = () => {
+        let path = '/#/Task1B';
+        window.location.assign(path);
+    }
 
+    const taskC = () => {
+        let path = '/#/Task1C';
+        window.location.assign(path);
     }
 
     // connect with the backend to randomize the task 
@@ -40,25 +45,31 @@ function InstructionsContainer() {
 
     return (
       <div className="container">
-        <h1>Page for instructions</h1> 
+        <h1>Experiment Home Page</h1> 
+
+        Please select the button your proctor tells you to to begin your user test.
 
         <div className="text"> 
-            Read the following instructions to complete the study:
-            <ol>
-                <li> Instruction No. 1</li>
-                <li> Instruction No. 2</li>
-            </ol> 
+            <Button variant="btn btn-success" onClick={training}>
+                Training (Not working right now)
+            </Button>
         </div>
 
         <div className="text"> 
-            <Checkbox onChange={checkboxHandler} style={{fontSize:"20px", textAlign: 'left', alignSelf: 'stretch'}}>
-                This is how you can add a checkbox.
-            </Checkbox> 
+            <Button variant="btn btn-success" onClick={taskA}>
+                User Test A
+            </Button>
         </div>
 
         <div className="text"> 
-            <Button disabled={!agree} variant="btn btn-success" onClick={routeChange}>
-                Start
+            <Button variant="btn btn-success" onClick={taskB}>
+                User Test B (Not working right now)
+            </Button>
+        </div>
+
+        <div className="text"> 
+            <Button variant="btn btn-success" onClick={taskC}>
+                User Test C (Not working right now)
             </Button>
         </div>
 

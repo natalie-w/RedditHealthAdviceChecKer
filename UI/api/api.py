@@ -52,9 +52,13 @@ class Survey(db.Model):
 
 
 # define image names. You can load this information from a local file or a database
-images = [{'name': 'cardinal.jpg', 'label': 'Cardinal'}, 
-          {'name': 'bluejay.jpg', 'label': 'Blue jay'},
-          {'name': 'cedarwaxwing.jpg', 'label': 'Cedar waxwing'}]
+images = [
+        {'name': 'UTI_intro.png', 'label': 'False', 'output': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! Here are the top three FALSE claims that match the potential misinformation above: /n ❌FALSE!❌  'Baking soda has been proven to cure UTIs.' /n ❌FALSE!❌  'Take 2 teaspoons of baking soda every hour to treat a UTI.' /n ❌FALSE!❌   'If you take baking soda, your UTI will be gone within 4 hours!!'"},
+        {'name': 'EarInfection.png', 'label': 'False', 'output': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! Here are the top three FALSE claims that match the potential misinformation above: /n ❌FALSE!❌  'Debrox has been proven to cure ear infections.' /n ❌FALSE!❌  'Flushing or irrigating an infected ear will make swelling go down.' /n ❌FALSE!❌   'False statement 3'"}, 
+        {'name': 'cold.png', 'label': 'False', 'output': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! Here are the top three FALSE claims that match the potential misinformation above: /n ❌FALSE!❌  'False statement 1.' /n ❌FALSE!❌  'False statement 2' /n ❌FALSE!❌   'False statement 3'"},
+        {'name': 'EarInfection.png', 'label': 'True', 'output': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! Here are the top three FALSE claims that match the potential misinformation above: /n ❌FALSE!❌  'False statement 1.' /n ❌FALSE!❌  'False statement 2' /n ❌FALSE!❌   'False statement 3'"},
+        {'name': 'EarInfection.png', 'label': 'True', 'output': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! Here are the top three FALSE claims that match the potential misinformation above: /n ❌FALSE!❌  'False statement 1.' /n ❌FALSE!❌  'False statement 2' /n ❌FALSE!❌   'False statement 3'"},
+        {'name': 'EarInfection.png', 'label': 'True', 'output': "🚨 ALERT! 🚨 /n HealthAdviceCheckBot here! Here are the top three FALSE claims that match the potential misinformation above: /n ❌FALSE!❌  'False statement 1.' /n ❌FALSE!❌  'False statement 2' /n ❌FALSE!❌   'False statement 3'"}]
 
 # check that the backend is connected
 @app.route('/time')

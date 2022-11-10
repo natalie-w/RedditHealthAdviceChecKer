@@ -22,8 +22,8 @@ function StartContainer() {
     return (
       <div className="Home">
         <div className="lander">
-            <h1>Study title here</h1>
-            <p> This is the start page. Welcome to our study. </p>
+            <h1>Reddit Health Advice ChecKer</h1>
+            <p> Thank you for participating in our user study; we estimate this process to take about 15 minutes. There are no wrong answers, we are evaluating our bot and not you. </p>
 
             <div>
                 <input type="checkbox" id="agree" onChange={checkboxHandler} />

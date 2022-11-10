@@ -1,11 +1,13 @@
 import React, { Component, useState, useEffect } from "react";
 import {Button, Modal, Checkbox, Input, Radio} from 'antd'
+import Popup from '../Popup';
 import "antd/dist/antd.css";
-import "./main.css";
+import "../main.css";
 
-import PredictionContainer from '../../components/predictionContainer'
 
-function Main1Container() {
+import PredictionContainer from '../../../components/predictionContainer'
+
+function Task1AContainer() {
     const [choice, setChoice] = useState(0);
     const [imageData, setImageData] = useState([]);
     const [currentImage, setCurrentImage] = useState("");
@@ -13,13 +15,14 @@ function Main1Container() {
     const [imageCount, setImageCount] = useState(0);
     const [showPrediction, setShowPrediction] = useState(false);
     const [taskTime, setTaskTime] = useState((Date.now() + 1000 * 1000));
+    const [isOpen, setIsOpen] = useState(false);
+    const [answeredQuestions, setAnsweredQuestions] = useState(false);
 
     const [currentTime, setCurrentTime] = useState(0);
-    const [moveToSurvey, setMoveToSurvey] = useState(false);
 
     const [render, setRender] = useState(false);
 
-    let totalImages = 3;
+    let totalImages = 6;
     const baseImgUrl = "./";
 
     const routeChange = () =>{ 
@@ -30,7 +33,7 @@ function Main1Container() {
 
     const nextChange = () =>{
         if (choice<1) {
-            alert("Please make sure to complete all the fields!");
+            alert("Please make sure to review the bot's output before trying to move on.");
         } else {
             let count = imageCount + 1;
             // save data
@@ -44,18 +47,25 @@ function Main1Container() {
             sendData(data)
             if (count >= totalImages) {
                 console.log('done with images')
-                setMoveToSurvey(true);
+                routeChange();
             } else {
                 // reinitialize variables
                 setChoice(0); 
                 setImageCount(count);
                 setCurrentImage(imageData[count].name);
-                setCurrentPrediction(imageData[count].label);
+                setCurrentPrediction(imageData[count].output);
+                console.log(setImageData[count])
                 setTaskTime(Date.now())
                 setShowPrediction(false);
             }
         }
     }
+
+    function newTab() {
+            setAnsweredQuestions(true)
+            window.open(
+            "https://forms.gle/PYG7cbrJVbPamjox8", "_blank");
+        }
 
     const sendData = (obj) => {
         fetch('http://localhost:8080/responsesData', {
@@ -73,8 +83,12 @@ function Main1Container() {
 
     const onChangeMultiple= e => {
         setChoice(e.target.value);
-
     };
+
+    const togglePopup = () => {
+    setIsOpen(!isOpen);
+    setChoice(1)
+  }
 
     const [agree, setAgree] = useState(false);
 
@@ -85,6 +99,7 @@ function Main1Container() {
         const checkboxHandler = () => {
         setAgree(!agree);
     }
+
 
     // testing communication with backend
     useEffect(() => {
@@ -107,7 +122,7 @@ function Main1Container() {
             let image_name = data['imgs'][0].name
             setCurrentImage(image_name)
             console.log(image_name)
-            setCurrentPrediction(data['imgs'][0].label);
+            setCurrentPrediction(data['imgs'][0].output);
             setRender(true);
             setTaskTime(Date.now())
         });
@@ -120,10 +135,13 @@ function Main1Container() {
        {render ?
 
             <div className="container">
-            <div className="title">Main experiment</div>
+            <div className="title">Experiment A</div>
+            Please imagine you are scrolling through Reddit looking for a solution to a health problem you are currently experiencing.
+
             <div className="column-container"> 
+
             <div className="left-column"> 
-                <p> This is how you load an image:</p>
+                <p> Here are the comments you find on Reddit:</p>
                 <div className="img-frame">
                     <img className="image-inner" src={baseImgUrl + currentImage}/>
                 </div>
@@ -131,12 +149,11 @@ function Main1Container() {
             </div>
 
             <div className="right-column"> 
-            <p> You can present the outcomes of the algorithms on this side:</p> 
-                
-            
+            <p> To check if the suggestion is dangerous, you can use our Reddit Health ChecKer bot by clicking "!healthadvicecheckbot".</p> 
+
             <Button className="btn-1"  onClick={()=>{handlePredict()}}>
-                Get a prediction
-            </Button>
+               !healthadvicecheckbot
+            </Button> 
 
             { showPrediction ?
                 <PredictionContainer 
@@ -145,41 +162,38 @@ function Main1Container() {
             :
                 <>
                 </>
+
             }
 
+            <div> </div>
 
-            <div className="instr">
-                <t> This is how you can ask a multiple choice question.</t>
-            </div>    
-                <Radio.Group onChange={onChangeMultiple} value={choice}>
-                    <Radio value={1}> <t> Option 1</t></Radio>
-                    <Radio value={2}> <t> Option 2</t></Radio>
-                    <Radio value={3}> <t> Option 3</t></Radio>
-                </Radio.Group>
+
+            <Button className="btn-1"  disabled={!showPrediction} onClick={togglePopup}>
+               Click Here When Done Reading Bot Output
+            </Button>
+
+    { isOpen && <Popup
+      content={<>
+        <b>Please click the button below and answer the questions before moving on.</b>
+        <div></div>
+      
+      <Button className="btn-1"  disabled={!showPrediction&!answeredQuestions} onClick={newTab}>
+               Questions
+            </Button>
+            </>
+  }
+      handleClose={togglePopup} />}
+
 
             </div>
+
             </div>
-
-                    <div className="text"> 
-            <Checkbox onChange={checkboxHandler} style={{fontSize:"20px", textAlign: 'left', alignSelf: 'stretch'}}>
-                This is how you can add a checkbox.
-            </Checkbox> 
-        </div>
-
 
             <div className="button-container"> 
                 <Button variant="btn btn-success"  style={{marginLeft:"70%"}}  onClick={nextChange}>
                     Next
                 </Button>
             </div>
-
-            {(moveToSurvey) && 
-            <div className="button-container"> 
-                <Button disabled={!moveToSurvey} variant="btn btn-success" onClick={routeChange}>
-                    Survey
-                </Button>
-            </div>
-            }
 
             </div>
 
@@ -193,4 +207,4 @@ function Main1Container() {
       );
 }
 
-export default Main1Container;
+export default Task1AContainer;

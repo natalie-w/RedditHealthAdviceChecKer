@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import {Button} from 'antd'
 import './style.css'
 
 
@@ -6,19 +7,34 @@ import './style.css'
 function PredictionContainer({ currentPrediction }) {
     // store the prediction message to display 
     const [predMessage, setPredMessage] = useState("");
+    console.log('curr pred', currentPrediction)
+    var renderedOutput = currentPrediction.split('/n').map(item => <div> <b> {item} </b> </div>);
+
+    const handlePredict=()=>{
+        return true;
+    };
+
 
 
     useEffect(() => {
-        setPredMessage("Example: The AI assistant suggests this image corresponds to a(n) ")
+        setPredMessage("")
+
+
     }, []);
 
+    console.log("inside prediction containers")
+    console.log(currentPrediction)
+    console.log(currentPrediction.split('/n'))
 
     return (
         <div className="column-container">
             <div className="prediction-container">
                 <div className="text"> 
-                    You can create boxes to separate some information
-                    <p> {predMessage} <b> {currentPrediction} </b>   </p>
+                    The bot responds with:
+
+                    <div>
+                        {renderedOutput}
+                    </div>
                 </div>
             </div> 
         </div>
