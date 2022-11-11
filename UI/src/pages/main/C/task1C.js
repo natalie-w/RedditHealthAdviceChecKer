@@ -7,13 +7,17 @@ import "../main.css";
 
 import PredictionContainer from '../../../components/predictionContainer'
 
-function Task1CContainer() {
+function Task1AContainer() {
     const [choice, setChoice] = useState(0);
     const [imageData, setImageData] = useState([]);
     const [currentImage, setCurrentImage] = useState("");
+    const [currentTitle, setCurrentTitle] = useState("");
+    const [currentPost, setCurrentPost] = useState("");
+    const [currentComment, setCurrentComment] = useState("");
     const [currentPrediction, setCurrentPrediction] = useState("");
     const [imageCount, setImageCount] = useState(0);
     const [showPrediction, setShowPrediction] = useState(false);
+    const [showSurvey, setShowSurvey] = useState(false);
     const [taskTime, setTaskTime] = useState((Date.now() + 1000 * 1000));
     const [isOpen, setIsOpen] = useState(false);
     const [answeredQuestions, setAnsweredQuestions] = useState(false);
@@ -32,7 +36,7 @@ function Task1CContainer() {
     }
 
     const nextChange = () =>{
-        if (choice<1) {
+        if (!showSurvey) {
             alert("Please make sure to review the bot's output before trying to move on.");
         } else {
             let count = imageCount + 1;
@@ -53,12 +57,17 @@ function Task1CContainer() {
                 setChoice(0); 
                 setImageCount(count);
                 setCurrentImage(imageData[count].name);
-                setCurrentPrediction(imageData[count].outputC);
+                setCurrentPrediction(imageData[count].outputB);
+                setCurrentTitle(imageData[count].title)
+                setCurrentComment(imageData[count].comment)
+                setCurrentPost(imageData[count].post)
                 setTaskTime(Date.now())
                 setShowPrediction(false);
+                setShowSurvey(false);
             }
         }
     }
+
 
     function newTab() {
             setAnsweredQuestions(true)
@@ -93,6 +102,7 @@ function Task1CContainer() {
 
     const handlePredict=()=>{
         setShowPrediction(true);
+        setShowSurvey(true);
     };
 
         const checkboxHandler = () => {
@@ -119,7 +129,10 @@ function Task1CContainer() {
             setImageData(data['imgs']);
             let image_name = data['imgs'][0].name
             setCurrentImage(image_name)
-            setCurrentPrediction(data['imgs'][0].outputC);
+            setCurrentTitle(data['imgs'][0].title)
+            setCurrentPost(data['imgs'][0].post)
+            setCurrentComment(data['imgs'][0].comment)
+            setCurrentPrediction(data['imgs'][0].outputB);
             setRender(true);
             setTaskTime(Date.now())
         });
@@ -133,75 +146,75 @@ function Task1CContainer() {
 
             <div className="container">
             <div className="title">Experiment C</div>
-            Please imagine you are scrolling through Reddit looking for a solution to a health problem you are currently experiencing.
+                <h3 id="directionsheader">Imagine you are scrolling through Reddit looking for a solution to a health problem you are currently experiencing.</h3>
+                <p id="directions">1. Read the Reddit post. <br />2. Read the comment. <br />3. Call the bot by typing '!healthadvicecheckbot'. <br />4. Read the bot's response. <br />5. Fill out the survey. </p>
 
             <div className="column-container"> 
 
             <div className="left-column"> 
-                <p> Here are the comments you find on Reddit:</p>
+                
+                
+
                 <div className="img-frame">
-                    <img className="image-inner" src={baseImgUrl + currentImage}/>
-                </div>
-                <p> {imageCount + 1} / {totalImages} Images</p>
-            </div>
+                    <p class="username"> Posted by user123 </p>
+                    <h3 id="posttitle"> <b> {currentTitle} </b> </h3> 
+                    <p id="posttext"> {currentPost} </p>
+                    <hr></hr>
+                    <p class="username"> Commented by user789</p>
+                    <p id="comment"> {currentComment} </p>
+                    <hr></hr>
+                    <p class="username"> Writing a comment...</p>
+                    <input type="text" id="textbox" placeholder="!healthadvicecheckbot" name="typedtext"></input>
+                    <Button className="btn-2" id="replybutton" onClick={()=>{handlePredict()}}>
+                       Reply
+                    </Button> 
 
-            <div className="right-column"> 
-            <p> To check if the suggestion is dangerous, you can use our Reddit Health ChecKer bot by clicking "!healthadvicecheckbot".</p> 
+                    { showPrediction ?
+                        <div>
+                            <hr></hr>
+                            <p class="username">Posted by HealthAdviceCheckBot</p>
+                            <PredictionContainer 
+                                currentPrediction={currentPrediction}
+                            />
+                        </div>
+                    :
+                        <>
+                        </>
 
-            <Button className="btn-1"  onClick={()=>{handlePredict()}}>
-               !healthadvicecheckbot
-            </Button> 
-
-            { showPrediction ?
-                <PredictionContainer 
-                    currentPrediction={currentPrediction}
-                />
-            :
-                <>
-                </>
-
-            }
+                    }
 
             <div> </div>
 
 
-            <Button className="btn-1"  disabled={!showPrediction} onClick={togglePopup}>
-               Click Here When Done Reading Bot Output
-            </Button>
+            
 
-    { isOpen && <Popup
-      content={<>
-        <b>Please click the button below and answer the questions before moving on.</b>
-        <div></div>
-      
-      <Button className="btn-1"  disabled={!showPrediction&!answeredQuestions} onClick={newTab}>
-               Questions
-            </Button>
-            </>
-  }
-      handleClose={togglePopup} />}
+                </div>
+                <p> {imageCount + 1} / {totalImages} </p>
 
 
             </div>
 
-            </div>
+            <div className="right-column"> 
+            {showSurvey ? 
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc2bYBWnfJDHVMm4bzyyZAckcDRnb4rTZ_XuPKrtObVVmNuEg/viewform?embedded=true" width="640" height="902" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe> : null}
+                <div className="button-container"> 
+                    <Button variant="btn btn-success"  style={{marginLeft:"70%"}}  onClick={nextChange}>
+                        Continue
+                    </Button>
+                </div>
+                </div>
+                </div>
+                </div>
 
-            <div className="button-container"> 
-                <Button variant="btn btn-success"  style={{marginLeft:"70%"}}  onClick={nextChange}>
-                    Next
-                </Button>
-            </div>
 
-            </div>
-
-        :
-            <> 
-            <h1> Loading ...</h1>
-            </>
-        }
+            :
+                <> 
+                <h1> Loading ...</h1>
+                </>
+            }
       </>
        
       );
 }
 
-export default Task1CContainer;
+export default Task1AContainer;

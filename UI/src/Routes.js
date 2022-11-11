@@ -7,6 +7,7 @@ import InstructionsContainer from './pages/instr/instructions';
 import Task1AContainer from "./pages/main/A/task1A";
 import Task1BContainer from "./pages/main/B/task1B";
 import Task1CContainer from "./pages/main/C/task1C";
+import TrainingContainer from "./pages/main/Training/training";
 import Main1Container from "./pages/main/main-task1";
 import Main2Container from "./pages/main/main-task2";
 import SurveyContainer from "./pages/survey/survey"
@@ -23,6 +24,7 @@ export default class Routes extends Component {
                     <Route path="/Task1A" component={Task1AContainer} />
                     <Route path="/Task1B" component={Task1BContainer} />
                     <Route path="/Task1C" component={Task1CContainer} />
+                    <Route path="/Training" component={TrainingContainer} />
                     <Route path="/Main1" component={Main1Container} />
                     <Route path="/Main2" component={Main2Container} />
                     <Route path="/Survey" component={SurveyContainer} />

@@ -9,7 +9,7 @@ function InstructionsContainer() {
 
     // TODO: make something here in training
     const training = () => {
-        let path = '/#/Task1C';
+        let path = '/#/Training';
         window.location.assign(path);
     }
 
@@ -51,7 +51,7 @@ function InstructionsContainer() {
 
         <div className="text"> 
             <Button variant="btn btn-success" onClick={training}>
-                Training (Not working right now but this is where we can have them to do the pre-survey and learn about reddit if we want them to)
+                Training
             </Button>
         </div>
 

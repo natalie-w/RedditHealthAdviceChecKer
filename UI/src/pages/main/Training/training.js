@@ -7,7 +7,7 @@ import "../main.css";
 
 import PredictionContainer from '../../../components/predictionContainer'
 
-function Task1AContainer() {
+function TrainingContainer() {
     const [choice, setChoice] = useState(0);
     const [imageData, setImageData] = useState([]);
     const [currentImage, setCurrentImage] = useState("");
@@ -57,7 +57,7 @@ function Task1AContainer() {
                 setChoice(0); 
                 setImageCount(count);
                 setCurrentImage(imageData[count].name);
-                setCurrentPrediction(imageData[count].outputB);
+                setCurrentPrediction(imageData[count].outputA);
                 setCurrentTitle(imageData[count].title)
                 setCurrentComment(imageData[count].comment)
                 setCurrentPost(imageData[count].post)
@@ -132,7 +132,7 @@ function Task1AContainer() {
             setCurrentTitle(data['imgs'][0].title)
             setCurrentPost(data['imgs'][0].post)
             setCurrentComment(data['imgs'][0].comment)
-            setCurrentPrediction(data['imgs'][0].outputB);
+            setCurrentPrediction(data['imgs'][0].outputA);
             setRender(true);
             setTaskTime(Date.now())
         });
@@ -145,7 +145,7 @@ function Task1AContainer() {
        {render ?
 
             <div className="container">
-            <div className="title">Experiment B</div>
+            <div className="title">Training</div>
                 <h3 id="directionsheader">Imagine you are scrolling through Reddit looking for a solution to a health problem you are currently experiencing.</h3>
                 <p id="directions">1. Read the Reddit post. <br />2. Read the comment. <br />3. Call the bot by typing '!healthadvicecheckbot'. <br />4. Read the bot's response. <br />5. Fill out the survey. </p>
 
@@ -217,4 +217,4 @@ function Task1AContainer() {
       );
 }
 
-export default Task1AContainer;
+export default TrainingContainer;

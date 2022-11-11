@@ -146,37 +146,42 @@ function Task1AContainer() {
 
             <div className="container">
             <div className="title">Experiment A</div>
-            Please imagine you are scrolling through Reddit looking for a solution to a health problem you are currently experiencing.
+                <h3 id="directionsheader">Imagine you are scrolling through Reddit looking for a solution to a health problem you are currently experiencing.</h3>
+                <p id="directions">1. Read the Reddit post. <br />2. Read the comment. <br />3. Call the bot by typing '!healthadvicecheckbot'. <br />4. Read the bot's response. <br />5. Fill out the survey. </p>
 
             <div className="column-container"> 
 
             <div className="left-column"> 
-            
-                <p> Here are the comments you find on Reddit:</p>
                 
                 
 
                 <div className="img-frame">
-                    <p> Post </p>
-                    <p> <b> {currentTitle} </b> </p> 
-                    <p> {currentPost} </p>
-                    <p> Comment </p>
-                    <p> {currentComment} </p>
-                    <p> To check if the suggestion is dangerous, you can use our Reddit Health ChecKer bot by clicking "!healthadvicecheckbot".</p> 
-<input type="text" id="typedtext" placeholder="!healthadvicecheckbot" name="typedtext"></input>
-                    <Button className="btn-2" onClick={()=>{handlePredict()}}>
+                    <p class="username"> Posted by user123 </p>
+                    <h3 id="posttitle"> <b> {currentTitle} </b> </h3> 
+                    <p id="posttext"> {currentPost} </p>
+                    <hr></hr>
+                    <p class="username"> Commented by user789</p>
+                    <p id="comment"> {currentComment} </p>
+                    <hr></hr>
+                    <p class="username"> Writing a comment...</p>
+                    <input type="text" id="textbox" placeholder="!healthadvicecheckbot" name="typedtext"></input>
+                    <Button className="btn-2" id="replybutton" onClick={()=>{handlePredict()}}>
                        Reply
                     </Button> 
 
-            { showPrediction ?
-                <PredictionContainer 
-                    currentPrediction={currentPrediction}
-                />
-            :
-                <>
-                </>
+                    { showPrediction ?
+                        <div>
+                            <hr></hr>
+                            <p class="username">Posted by HealthAdviceCheckBot</p>
+                            <PredictionContainer 
+                                currentPrediction={currentPrediction}
+                            />
+                        </div>
+                    :
+                        <>
+                        </>
 
-            }
+                    }
 
             <div> </div>
 
@@ -190,24 +195,23 @@ function Task1AContainer() {
             </div>
 
             <div className="right-column"> 
-            {showSurvey ? <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc2bYBWnfJDHVMm4bzyyZAckcDRnb4rTZ_XuPKrtObVVmNuEg/viewform?embedded=true" width="640" height="902" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe> : null}
-      <div className="button-container"> 
-                <Button variant="btn btn-success"  style={{marginLeft:"70%"}}  onClick={nextChange}>
-                    Next
-                </Button>
-            </div>
-      </div>
+            {showSurvey ? 
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc2bYBWnfJDHVMm4bzyyZAckcDRnb4rTZ_XuPKrtObVVmNuEg/viewform?embedded=true" width="640" height="902" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe> : null}
+                <div className="button-container"> 
+                    <Button variant="btn btn-success"  style={{marginLeft:"70%"}}  onClick={nextChange}>
+                        Continue
+                    </Button>
+                </div>
+                </div>
+                </div>
+                </div>
 
-            </div>
 
-            </div>
-
-
-        :
-            <> 
-            <h1> Loading ...</h1>
-            </>
-        }
+            :
+                <> 
+                <h1> Loading ...</h1>
+                </>
+            }
       </>
        
       );

@@ -13,7 +13,8 @@
 
 .column-container{
     display: flex;
-    margin-top: 30px;
+    margin-top: 25px;
+    width: 100%;
 }
 
 .left-column{
@@ -78,7 +79,8 @@ t {
     height: 350px;
     width: 450px;
     padding: 8px 8px;
-    border: 3px solid #4472C4;
+    border: 3px solid #c44479;
+    background-color: #FFE7C8;
 }
 
 #canvas {
@@ -114,9 +116,9 @@ t {
 
 .prediction-container{
     text-align: left;
-    font-size: 16px;
-    width: 75%;
-    background-color: rgba(216, 160, 55, 0.632);
+    font-size: 14px;
+    width: 90%;
+    background-color: #FFE7C8;
     margin-bottom: 10px;
     margin-top: 10px;
 }
@@ -178,4 +180,43 @@ t {
   text-align: center;
   border: 1px solid #999;
   font-size: 20px;
+}
+
+#posttitle {
+    background-color: #FFE7C8;
+    text-align: left;
+    margin-bottom: 0em;
+}
+
+#posttext {
+    background-color: #FFE7C8;
+    text-align: left;
+}
+
+#textbox {
+    width: 100%;
+}
+
+#comment {
+    background-color: #FFE7C8;
+    text-align: left;
+}
+
+.username {
+    text-align: left;
+    color: gray;
+    margin-bottom: 0em;
+    background-color: #FFE7C8;
+}
+
+#directionsheader {
+    text-align: left;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+#directions{
+    text-align: left;
+    padding-left: 20%;
+    padding-right: 20%;
 }
