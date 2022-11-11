@@ -39,32 +39,9 @@ function TrainingContainer() {
         if (!showSurvey) {
             alert("Please make sure to review the bot's output before trying to move on.");
         } else {
-            let count = imageCount + 1;
-            // save data
-            let data = {
-                q_id: currentImage,
-                user_id: localStorage.getItem("user-id"),
-                ans: choice,
-                time: ((Date.now() - taskTime) / 1000).toFixed(3)
-            };
-            console.log(data)
-            sendData(data)
-            if (count >= totalImages) {
-                console.log('done with images')
-                routeChange();
-            } else {
-                // reinitialize variables
-                setChoice(0); 
-                setImageCount(count);
-                setCurrentImage(imageData[count].name);
-                setCurrentPrediction(imageData[count].outputA);
-                setCurrentTitle(imageData[count].title)
-                setCurrentComment(imageData[count].comment)
-                setCurrentPost(imageData[count].post)
-                setTaskTime(Date.now())
-                setShowPrediction(false);
-                setShowSurvey(false);
-            }
+            let path = '/#/Instructions'; 
+            // history.push(path);
+            window.location.assign(path);
         }
     }
 
@@ -146,8 +123,12 @@ function TrainingContainer() {
 
             <div className="container">
             <div className="title">Training</div>
-                <h3 id="directionsheader">Imagine you are scrolling through Reddit looking for a solution to a health problem you are currently experiencing.</h3>
-                <p id="directions">1. Read the Reddit post. <br />2. Read the comment. <br />3. Call the bot by typing '!healthadvicecheckbot'. <br />4. Read the bot's response. <br />5. Fill out the survey. </p>
+                <h3 id="directionsheader">In this experiment, you will interact with some Reddit posts and a Reddit bot. </h3>
+                <p id="directions">In each Reddit post, the Reddit user will be seeking advice for a health issue, and another user will comment with health advice. For example, someone will ask about a solution to toenail fungus, and another user will respond with some suggestions.</p>
+                <p id="directions">You will use a Reddit bot to get information about whether the comment with health advice contains misinformation. You can think of the Reddit bot as an automated system that you summon by making a Reddit comment using its name (e.g., '!healthadvicecheckbot').</p>
+                <p id="directions">You will a see a post and a comment, and then <b> you will call the bot by commenting '!healthadvicecheckbot'.</b> When you summon our Reddit bot, it will make a comment that describes whether it thinks a prior comment contains misinformation related to health. </p>
+                <p id="directions">Let's try an example.</p>
+                <p id="directions">1. Read the Reddit post. <br />2. Read the comment. <br />3. Call the bot by typing '!healthadvicecheckbot'. <br />4. Read the bot's response. <br />5. Fill out the survey.  <br />6. Click the Continue button.</p>
 
             <div className="column-container"> 
 
@@ -157,11 +138,11 @@ function TrainingContainer() {
 
                 <div className="img-frame">
                     <p class="username"> Posted by user123 </p>
-                    <h3 id="posttitle"> <b> {currentTitle} </b> </h3> 
-                    <p id="posttext"> {currentPost} </p>
+                    <h3 id="posttitle"> <b> Have any of you successfully treated/cured toenail fungus without going to the doctor? </b> </h3> 
+                    <p id="posttext"> Not just "I heard this works" like I see on most sites/forums, but actual experiences doing so? I did 3 months of a Lamisil prescription from my doctor and it cleared up pretty much most of it but there's still some there and I ran out of Lamisil 2 months or so ago. I'm wondering if I should go through another round after asking my doctor or if there's something I can do at home that works well since my toenail fungus is fairly minor now. Thank you in advance :) </p>
                     <hr></hr>
                     <p class="username"> Commented by user789</p>
-                    <p id="comment"> {currentComment} </p>
+                    <p id="comment"> My aunt got toenail fungus from a sketchy pedicure place and someone (her doctor? some rando? IDK) told her to soak her foot in water with a little bit of tea tree oil for twenty minutes every evening, and it cleared up. </p>
                     <hr></hr>
                     <p class="username"> Writing a comment...</p>
                     <input type="text" id="textbox" placeholder="!healthadvicecheckbot" name="typedtext"></input>
@@ -172,9 +153,9 @@ function TrainingContainer() {
                     { showPrediction ?
                         <div>
                             <hr></hr>
-                            <p class="username">Posted by HealthAdviceCheckBot</p>
+                            <p class="username">Commented by HealthAdviceCheckBot</p>
                             <PredictionContainer 
-                                currentPrediction={currentPrediction}
+                                currentPrediction={"The bot's response will appear here! The bot's reply will describe whether it thinks the comment by user789 contains misinformation. During the experiment, you will fill out a survey that will appear on the right side of the screen once you have read the bot's response."}
                             />
                         </div>
                     :
@@ -189,19 +170,23 @@ function TrainingContainer() {
             
 
                 </div>
-                <p> {imageCount + 1} / {totalImages} </p>
+                <p>     </p>
 
 
             </div>
 
             <div className="right-column"> 
             {showSurvey ? 
-                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc2bYBWnfJDHVMm4bzyyZAckcDRnb4rTZ_XuPKrtObVVmNuEg/viewform?embedded=true" width="640" height="902" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe> : null}
-                <div className="button-container"> 
-                    <Button variant="btn btn-success"  style={{marginLeft:"70%"}}  onClick={nextChange}>
-                        Continue
-                    </Button>
+                <div> 
+                    <div className="button-container"> 
+                        <Button variant="btn btn-success"  style={{marginLeft:"70%"}}  onClick={nextChange}>
+                            Continue
+                        </Button>
+                    </div> 
+                    <div className="img-frame">The survey will appear here.</div> 
                 </div>
+            : null}
+                
                 </div>
                 </div>
                 </div>

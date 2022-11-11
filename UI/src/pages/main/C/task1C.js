@@ -147,7 +147,7 @@ function Task1AContainer() {
             <div className="container">
             <div className="title">Experiment C</div>
                 <h3 id="directionsheader">Imagine you are scrolling through Reddit looking for a solution to a health problem you are currently experiencing.</h3>
-                <p id="directions">1. Read the Reddit post. <br />2. Read the comment. <br />3. Call the bot by typing '!healthadvicecheckbot'. <br />4. Read the bot's response. <br />5. Fill out the survey. </p>
+                <p id="directions">1. Read the Reddit post. <br />2. Read the comment. <br />3. Call the bot by typing '!healthadvicecheckbot'. <br />4. Read the bot's response. <br />5. Fill out the survey.  <br />6. Click the Continue button.</p>
 
             <div className="column-container"> 
 
@@ -172,7 +172,7 @@ function Task1AContainer() {
                     { showPrediction ?
                         <div>
                             <hr></hr>
-                            <p class="username">Posted by HealthAdviceCheckBot</p>
+                            <p class="username">Commented by HealthAdviceCheckBot</p>
                             <PredictionContainer 
                                 currentPrediction={currentPrediction}
                             />
@@ -196,12 +196,15 @@ function Task1AContainer() {
 
             <div className="right-column"> 
             {showSurvey ? 
-                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc2bYBWnfJDHVMm4bzyyZAckcDRnb4rTZ_XuPKrtObVVmNuEg/viewform?embedded=true" width="640" height="902" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe> : null}
-                <div className="button-container"> 
+                <div> 
+                    <div className="button-container"> 
                     <Button variant="btn btn-success"  style={{marginLeft:"70%"}}  onClick={nextChange}>
                         Continue
                     </Button>
+                    </div>
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc2bYBWnfJDHVMm4bzyyZAckcDRnb4rTZ_XuPKrtObVVmNuEg/viewform?embedded=true" width="640" height="902" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>  
                 </div>
+            : null}
                 </div>
                 </div>
                 </div>
