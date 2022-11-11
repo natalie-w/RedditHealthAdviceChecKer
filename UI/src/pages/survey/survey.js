@@ -70,9 +70,7 @@ const SurveyContainer = () => {
     <div className="container"> 
 
         <div className="title"> Study Survey</div>
-        <div className='text'> Thank you for your time, please click the button below and complete a post-survey about our bot.
-
-        <b> TODO: Update this link to a new final survey with no by case questions. </b> </div>
+        <div className='text'> Thank you for your time. Please click the button below and complete a post-survey about our bot.</div>
              <Button className="btn-1"  onClick={newTabFinalSurvey}>
                Post-Survey 
        </Button>
