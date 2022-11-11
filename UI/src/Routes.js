@@ -7,7 +7,7 @@ import InstructionsContainer from './pages/instr/instructions';
 import Task1AContainer from "./pages/main/A/task1A";
 import Task1BContainer from "./pages/main/B/task1B";
 import Task1CContainer from "./pages/main/C/task1C";
-import TrainingContainer from "./pages/main/Training/training";
+import TrainingContainer from "./pages/main/training/training";
 import Main1Container from "./pages/main/main-task1";
 import Main2Container from "./pages/main/main-task2";
 import SurveyContainer from "./pages/survey/survey"
