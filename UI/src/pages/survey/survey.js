@@ -70,10 +70,8 @@ const SurveyContainer = () => {
     <div className="container"> 
 
         <div className="title"> Study Survey</div>
-        <div className='text'> Thank you for your time. Please click the button below and complete a post-survey about our bot.</div>
-             <Button className="btn-1"  onClick={newTabFinalSurvey}>
-               Post-Survey 
-       </Button>
+        <div className='text'> Thank you for your time. Please complete this post-survey about our bot.</div>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfjF5eLbkE6zgYfQ_r-o7KIOj6zopytRvlCqCOfA9RjryxGqg/viewform?embedded=true" width="640" height="902" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
 
     
