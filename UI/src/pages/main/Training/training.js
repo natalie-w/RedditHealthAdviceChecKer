@@ -184,6 +184,7 @@ function TrainingContainer() {
                         </Button>
                     </div> 
                     <div className="img-frame">The survey will appear here.</div> 
+                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdoODu_KUojQFdWlMtdV5g3uz-P1bVTsqRPOeRH_Rc4pgb3fg/viewform?embedded=true" width="640" height="1694" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
                 </div>
             : null}
                 
