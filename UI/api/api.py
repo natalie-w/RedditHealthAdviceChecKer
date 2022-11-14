@@ -92,7 +92,7 @@ images = [
         "title": "Can you clear up a UTI without needing antibiotics?",
         'post': "For example, if you catch it early enough, can you just drown it in cranberry juice?",
         "comment": "I've succeeded with the baking soda treatment. Basically, you put teaspoon baking soda in a huge glass of water and throughout the day you drink it. With each sip of baking water, you drink normal water. Yes, you will pee every five minutes. But in the end, I was done my infection in one day.",
-        'outputA': "🚨 ALERT! 🚨 \n HealthAdviceCheckBot here! Here are the top three FALSE claims that match the potential misinformation above: \n ❌FALSE!❌  'False statement 1.' \n ❌FALSE!❌  'False statement 2' \n ❌FALSE!❌   'False statement 3'",
+        'outputA': "🚨 ALERT! 🚨 \n HealthAdviceCheckBot here! Here are the top three FALSE claims that match the potential misinformation above: \n ❌FALSE!❌  'Baking soda has been proven to cure UTIs, according to research from the University of Arizona.' \n ❌FALSE!❌  'A common household cure for UTIs to take 2 teaspoons of baking soda every hour to treat a UTI.' \n ❌FALSE!❌   'Healthline.com says that if you take baking soda, your UTI will be gone within 4 hours.'",
         'outputB': "🚨 ALERT! 🚨 \n HealthAdviceCheckBot here! Based on my medical knowledge, I am 93% sure that the above comment is ❌FALSE!❌ Use caution and do not follow that advice!",
         'outputC': "🚨 ALERT! 🚨 \n HealthAdviceCheckBot here! The above comment contains dangerous health advice! DO NOT FOLLOW that advice!"}]
 
