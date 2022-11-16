@@ -57,7 +57,7 @@ function Task1AContainer() {
                 setChoice(0); 
                 setImageCount(count);
                 setCurrentImage(imageData[count].name);
-                setCurrentPrediction(imageData[count].outputB);
+                setCurrentPrediction(imageData[count].outputC);
                 setCurrentTitle(imageData[count].title)
                 setCurrentComment(imageData[count].comment)
                 setCurrentPost(imageData[count].post)
@@ -132,7 +132,7 @@ function Task1AContainer() {
             setCurrentTitle(data['imgs'][0].title)
             setCurrentPost(data['imgs'][0].post)
             setCurrentComment(data['imgs'][0].comment)
-            setCurrentPrediction(data['imgs'][0].outputB);
+            setCurrentPrediction(data['imgs'][0].outputC);
             setRender(true);
             setTaskTime(Date.now())
         });
