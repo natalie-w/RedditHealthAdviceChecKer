@@ -122,6 +122,14 @@ def getImageInfo():
     response_body = {'imgs': images}
     return jsonify(response_body)
 
+# get model prediction
+@app.route('/modelPrediction', methods=['GET'])
+def getModelPrediction():
+    # define the order of the images to be loaded
+    random.shuffle(images)
+    response_body = {'imgs': images}
+    return jsonify(response_body)
+
 
 # send data from frontend to backend
 @app.route('/responsesData', methods=['POST'])
