@@ -1,7 +1,7 @@
 import os
 import time
 import random
-import test
+import knn
 from urllib import response
 
 from flask import Flask, jsonify, json, request
@@ -51,13 +51,14 @@ class Survey(db.Model):
       self.q1 = q1
       self.q2 = q2
 
+gas = knn.run_knn("From your description I would guess it is not your appendix. First the pain is on the midline and too high up. You most likely have some other sort of GI distress going on. Gas can be extremely painful. What makes it worse or better? My advice is you are safe to wait until the morning to go and see the doctor, however if it gets worse, the pain changes location or type you should consider going to an urgent care/er. In rare cases it could be an obstruction. You know your body, and it is better to be on the safe side. Walking around will help move the gas through your system, a heating pack on your stomach can help with discomfort", 3)
 
 images = [
         {'name': 'health_posts/uti.png', 'label': 'False', 
         "title": "Gas or Appendicitis?",
         'post': "Hi, all. I (25F) had some gas earlier in the night but after I burped a few times, i felt okay-ish. Shorty after that, I started experiencing a very sharp, stabbing pain in the abdomen. It’s the type of pain that feels like an excruciating stab every time you move or breathe. Normally I get this with gas but it’s always under my breastbone, never in my lower midsection. The pain feels as though it’s localized in the center of my stomach, a few centimeters above my bellybutton. It has been persisting for the past hour and a half now and it won’t go away. When I exhale, and I keep my stomach relaxed/deflated (like right before you inhale again), the pain remains until I inhale again. It went from annoying to excruciating and when I tried to go the bathroom, I found that I couldn’t stand straight. I couldn’t even sit upright without my stomach radiating with pain. It’s unbearable and so, can anyone advise if this is regular gas pain or appendicitis? I plan to go the dr in the morning if it persists but I’d like to get some general feedback here first. Ps. Don’t know if it’s relevant but I took Benadryl to sleep earlier.",
         "comment": "From your description I would guess it is not your appendix. First the pain is on the midline and too high up. You most likely have some other sort of GI distress going on. Gas can be extremely painful. What makes it worse or better? My advice is you are safe to wait until the morning to go and see the doctor, however if it gets worse, the pain changes location or type you should consider going to an urgent care/er. In rare cases it could be an obstruction. You know your body, and it is better to be on the safe side. Walking around will help move the gas through your system, a heating pack on your stomach can help with discomfort",
-        'outputA': test.test("what is happenin"),
+        'outputA': "🚨 ALERT! 🚨 \n HealthAdviceCheckBot here! Here are the top three FALSE claims that match the potential misinformation above: \n ❌FALSE!❌ {0} ; similarity score: {1} \n ❌FALSE!❌ {2} ; similarity score: {3} \n ❌FALSE!❌ {4} ; similarity score: {5}".format(gas[0][0], gas[0][1], gas[1][0], gas[1][1], gas[2][0], gas[2][1]),
         'outputB': "🚨 HealthAdviceCheckBot here! 🚨 \n Based on my medical knowledge, I cannot confirm whether or not this is misinformation. We’ve thoroughly searched our database of misinformation, but haven’t found anything that contradicts the advice in the comment above. We encourage you to research on your own at https://www.nih.gov/. ",
         'outputC': "🚨 HealthAdviceCheckBot here! 🚨 \n Based on my medical knowledge, I cannot confirm whether or not this is misinformation. We’ve thoroughly searched our database of misinformation, but haven’t found anything that contradicts the advice in the comment above. We encourage you to research on your own at https://www.nih.gov/. "},
         {'name': 'health_posts/earinfection.png', 'label': 'False', 
