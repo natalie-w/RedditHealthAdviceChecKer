@@ -6,6 +6,7 @@ from urllib import response
 from flask import Flask, jsonify, json, request
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+import knn
 
 
 app = Flask(__name__)
@@ -120,16 +121,22 @@ def getImageInfo():
     # define the order of the images to be loaded
     random.shuffle(images)
     response_body = {'imgs': images}
-    return jsonify(response_body)
+    # comment = images[0]["comment"]
+    # output = knn.run_knn(comment, 3)
+    # return jsonify("🚨 ALERT! 🚨 \n HealthAdviceCheckBot here! Here are the top three FALSE claims that match the potential misinformation above: \n ❌FALSE!❌ {0} ; similarity score: {1} \n ❌FALSE!❌ {2} ; similarity score: {3} \n ❌FALSE!❌ {4} ; similarity score: {5}".format(output[0][0], output[0][1], output[1][0], output[1][1], output[2][0], output[2][1]))
 
+    return jsonify(response_body)
 # get model prediction
 @app.route('/modelPrediction', methods=['POST'])
 def getModelPrediction():
     # define the order of the images to be loaded
-    random.shuffle(images)
-    response_body = {'imgs': images}
-    return jsonify("hello")
-
+    request_data = json.loads(request.data)
+    output = knn.run_knn(request_data, 3)
+    if len(output) == 2:
+        return jsonify("🚨 ALERT! 🚨 \n HealthAdviceCheckBot here! Here are the top FALSE claims that match the potential misinformation above: \n ❌FALSE!❌ {0} ; similarity score: {1} \n ❌FALSE!❌ {2} ; similarity score: {3}".format(output[0][0], output[0][1], output[1][0], output[1][1]))
+    else:
+        return jsonify("🚨 ALERT! 🚨 \n HealthAdviceCheckBot here! Here are the top FALSE claims that match the potential misinformation above: \n ❌FALSE!❌ {0} ; similarity score: {1} \n ❌FALSE!❌ {2} ; similarity score: {3} \n ❌FALSE!❌ {4} ; similarity score: {5}".format(output[0][0], output[0][1], output[1][0], output[1][1], output[2][0], output[2][1]))
+    # return jsonify("helo")
 
 # send data from frontend to backend
 @app.route('/responsesData', methods=['POST'])

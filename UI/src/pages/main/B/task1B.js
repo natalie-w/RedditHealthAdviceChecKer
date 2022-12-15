@@ -38,8 +38,8 @@ function Task1AContainer() {
 
     const sentenceSubmit = (event) =>{ 
         event.preventDefault();
-        sendData(event.target[0].value)
-        setText(event.target[0].value)
+        setText("Please be patient, our model is running.");
+        sendData(event.target[0].value).then(setText(event.target[0].value))
 
     }
 
