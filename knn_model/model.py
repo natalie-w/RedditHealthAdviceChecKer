@@ -20,6 +20,8 @@ from nltk.corpus import stopwords
 from sklearn.metrics import roc_auc_score
 from collections import Counter
 import re
+import json
+import os
 nltk.download('stopwords')
 s = stopwords.words('english')
 
@@ -249,7 +251,75 @@ def prepare_df(data_file_path):
     return df
 
 
-def save_prediction_to_jsonl(similar_texts_list):
+def save_prediction_to_jsonl(input_text, input_text_label, input_sentences, similar_texts_list, output_file_path, train_df):
+    # prediction_dict is a dict that contains
+    #   * `input_text`
+    #   * `original_sentence_index`
+    #   * `similar_sentences_dict`, a dict storing the index of each similar sentence, like {similar_sentence: index}
+    #   * `count_dict`, a dict storing the count of each similar sentence, like {similar_sentence: count}
+    #   * `score_dict`, a dict storing the score of each similar sentence, like {similar_sentence: [list of scores]}. it is a list in case because count can be > 1
+    #   * `label_dict`, a dict storing the label of each similar sentence, like {similar_sentence: label}
+    prediction_dict = {}
+    similar_sentences_dict = {}
+    count_dict = {}
+    score_dict = {}
+    label_dict = {}
+    original_sentence_index = None
+
+    all_similar_sentences = []  # Used for Counter
+
+    for i, result in enumerate(similar_texts_list):
+        original_sentence_index = result[0][0][0]
+        if original_sentence_index == len(input_sentences):
+            original_sentence = input_text
+        else:
+            original_sentence = input_sentences[original_sentence_index]
+
+        similar_sentence_index = result[0][0][1]
+        similar_sentence_data = train_df.iloc[[similar_sentence_index]].values.tolist()[0]
+
+        text_original_column_index = 11
+        label_categorical_column_index = 7
+
+        score = result[1]
+
+        similar_sentence = similar_sentence_data[text_original_column_index]
+        all_similar_sentences.append(similar_sentence)
+
+        label = similar_sentence_data[label_categorical_column_index]
+        label_dict[similar_sentence] = label.lower()
+
+        # Save similar sentence index
+        similar_sentences_dict[similar_sentence] = similar_sentence_index
+        # Save score
+        if similar_sentence in score_dict:
+            score_dict[similar_sentence].append(score)
+        else:
+            score_dict[similar_sentence] = [score]
+        # Update count of this similar sentence
+        if similar_sentence in count_dict:
+            count_dict[similar_sentence] += 1
+        else:
+            count_dict[similar_sentence] = 1
+
+    """ Add stuff to prediction_dict """
+    prediction_dict['input_text'] = input_text
+    prediction_dict['input_text_label'] = input_text_label
+    prediction_dict['original_sentence_index'] = original_sentence_index
+    prediction_dict['similar_sentence_dict'] = similar_sentences_dict
+    prediction_dict['score_dict'] = score_dict
+    prediction_dict['count_dict'] = count_dict
+    prediction_dict['label_dict'] = label_dict
+
+    similar_sentence_counter = Counter(all_similar_sentences)
+    most_common = similar_sentence_counter.most_common()
+
+    prediction_dict['most_common'] = most_common
+
+    print(prediction_dict)
+    print()
+
+    append_record(output_file_path, prediction_dict)
 
 
 def evaluate_test_set(X_train, y_train, train_df):
@@ -262,93 +332,21 @@ def evaluate_test_set(X_train, y_train, train_df):
     classifier = KNN_Model(preprocess=preprocess, k=k_value, distance_type='path')
     classifier.fit(X_train, y_train)
 
-    prediction_list = []
+    output_file_path = 'pubhealth_test_predictions.jsonl'
 
     count = 1
     for index, row in test_df.iterrows():
         input_text = row['text']
-        print(f'Getting similar sentences for {input_text} ({count}/{len(test_df)})')
+        input_sentences = classifier.split_input(input_text)
+        print(f'Getting similar sentences for \"{input_text}\" ({count}/{len(test_df)})')
         count += 1
 
         input_text_label = row['label_categorical']
 
-        input_sentences = classifier.split_input(input_text)
-
         similar_texts_list = classifier.predict(input_text)
         # similar_texts_list: [ ((index_of_sentence_in_input, index_of_similar_sentence_in_`dataset`), score), ...]
 
-        # prediction_dict is a dict that contains
-        #   * `input_text`
-        #   * `original_sentence_index`
-        #   * `similar_sentences_dict`, a dict storing the index of each similar sentence, like {similar_sentence: index}
-        #   * `count_dict`, a dict storing the count of each similar sentence, like {similar_sentence: count}
-        #   * `score_dict`, a dict storing the score of each similar sentence, like {similar_sentence: [list of scores]}. it is a list in case because count can be > 1
-        #   * `label_dict`, a dict storing the label of each similar sentence, like {similar_sentence: label}
-        prediction_dict = {}
-        similar_sentences_dict = {}
-        count_dict = {}
-        score_dict = {}
-        label_dict = {}
-        original_sentence_index = None
-
-        all_similar_sentences = []  # Used for Counter
-
-        for i, result in enumerate(similar_texts_list):
-            original_sentence_index = result[0][0][0]
-            if original_sentence_index == len(input_sentences):
-                original_sentence = input_text
-            else:
-                original_sentence = input_sentences[original_sentence_index]
-
-            similar_sentence_index = result[0][0][1]
-            similar_sentence_data = train_df.iloc[[similar_sentence_index]].values.tolist()[0]
-
-            text_original_column_index = 11
-            label_categorical_column_index = 7
-
-            score = result[1]
-
-            similar_sentence = similar_sentence_data[text_original_column_index]
-            all_similar_sentences.append(similar_sentence)
-
-            label = similar_sentence_data[label_categorical_column_index]
-            label_dict[similar_sentence] = label.lower()
-
-            # Save similar sentence index
-            similar_sentences_dict[similar_sentence] = similar_sentence_index
-            # Save score
-            if similar_sentence in score_dict:
-                score_dict[similar_sentence].append(score)
-            else:
-                score_dict[similar_sentence] = [score]
-            # Update count of this similar sentence
-            if similar_sentence in count_dict:
-                count_dict[similar_sentence] += 1
-            else:
-                count_dict[similar_sentence] = 1
-
-        """ Add stuff to prediction_dict """
-        prediction_dict['input_text'] = input_text
-        prediction_dict['input_text_label'] = input_text_label
-        prediction_dict['original_sentence_index'] = original_sentence_index
-        prediction_dict['similar_sentence_dict'] = similar_sentences_dict
-        prediction_dict['score_dict'] = score_dict
-        prediction_dict['count_dict'] = count_dict
-        prediction_dict['label_dict'] = label_dict
-
-        similar_sentence_counter = Counter(all_similar_sentences)
-        most_common = similar_sentence_counter.most_common()
-
-        prediction_dict['most_common'] = most_common
-        prediction_list.append(prediction_dict)
-
-        print(prediction_dict)
-
-    output_file_path = 'pubhealth_test_predictions.jsonl'
-    for prediction in prediction_list:
-        append_record(output_file_path, prediction)
-
-    return prediction_list
+        save_prediction_to_jsonl(input_text, input_text_label, input_sentences, similar_texts_list, output_file_path, train_df)
 
 
 def append_record(file_path, record):
@@ -389,9 +387,6 @@ def main():
         df.loc[i, 'text'] = text
         X_train = df['text']
     y_train = df['label']
-
-    print("Preprocessed claims")
-    print(df['text'][:10])
 
     evaluate_test_set(X_train, y_train, df)  # Pass train df
 
