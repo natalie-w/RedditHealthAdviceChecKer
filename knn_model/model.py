@@ -1,3 +1,9 @@
+"""
+
+Heavily modified from the KNN tutorial at https://towardsdatascience.com/text-classification-using-k-nearest-neighbors-46fa8a77acc5
+
+"""
+
 import warnings
 warnings.filterwarnings('ignore')
 import nltk
