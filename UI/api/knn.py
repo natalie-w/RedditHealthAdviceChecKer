@@ -405,7 +405,7 @@ def save_prediction_to_jsonl(input_text, input_text_label, input_sentences, simi
     return prediction_dict
 
 
-def evaluate_test_set(X_train, y_train, train_df):
+def evaluate_test_set(X_train, y_train, train_df, input_text):
     test_data_file_path = "test.tsv"
     test_df = read_data(test_data_file_path)
 
@@ -418,18 +418,18 @@ def evaluate_test_set(X_train, y_train, train_df):
     output_file_path = 'pubhealth_test_predictions.jsonl'
 
     count = 1
-    for index, row in test_df.iterrows():
-        input_text = row['text']
-        input_sentences = classifier.split_input(input_text)
-        print(f'Getting similar sentences for \"{input_text}\" ({count}/{len(test_df)})')
-        count += 1
+    # for index, row in test_df.iterrows():
+    #     input_text = row['text']
+    input_sentences = classifier.split_input(input_text)
+    print(f'Getting similar sentences for \"{input_text}\"')
+    count += 1
 
-        input_text_label = row['label_categorical']
+    input_text_label = 'None'
 
-        similar_texts_list = classifier.predict(input_text)
-        # similar_texts_list: [ ((index_of_sentence_in_input, index_of_similar_sentence_in_`dataset`), score), ...]
+    similar_texts_list = classifier.predict(input_text)
+    # similar_texts_list: [ ((index_of_sentence_in_input, index_of_similar_sentence_in_`dataset`), score), ...]
 
-        return save_prediction_to_jsonl(input_text, input_text_label, input_sentences, similar_texts_list, output_file_path, train_df)
+    return save_prediction_to_jsonl(input_text, input_text_label, input_sentences, similar_texts_list, output_file_path, train_df)
     
 
 def run_knn(input_text, k_value):
@@ -443,9 +443,9 @@ def run_knn(input_text, k_value):
     classifier.fit(X_train, y_train)
     input_sentences = classifier.split_input(input_text)
 
-    y_pred = classifier.predict(input_text)
-
-    prediction = evaluate_test_set(X_train, y_train, df)
+    # y_pred = classifier.predict(input_text)
+    # print(y_pred)
+    prediction = evaluate_test_set(X_train, y_train, df, input_text)
 
     output_string = "🚨 ALERT! 🚨 \n HealthAdviceCheckBot here! Here are the top claims that match the potential misinformation above: \n "
     # for prediction in output:
