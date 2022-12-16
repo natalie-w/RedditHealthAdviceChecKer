@@ -460,9 +460,9 @@ def run_knn(input_text, k_value):
         avg_score = sum(scores) / float(len(scores))
         avg_score_as_percentage = int(avg_score * 100)
         if label == "true":
-            output_string = "{0} ✅{1}✅ {2}  ({3}% similar to the orignal statement) \n \n".format(output_string, label.upper(), similar_sentence, avg_score_as_percentage)
+            output_string = "{0} ✅{1}✅ {2}  ({3}% similar to the original statement) \n \n".format(output_string, label.upper(), similar_sentence, avg_score_as_percentage)
         else:
-            output_string = "{0} ❌{1}❌ {2}  ({3}% similar to the orignal statement) \n \n".format(output_string, label.upper(), similar_sentence, avg_score_as_percentage)
+            output_string = "{0} ❌{1}❌ {2}  ({3}% similar to the original statement) \n \n".format(output_string, label.upper(), similar_sentence, avg_score_as_percentage)
             # print(f'  **{label.upper()}** {similar_sentence}  ({avg_score_as_percentage}%)')
         # print("\n\n")
     # similar_sentence_counter, similar_sentence_to_original_sentence_dict = get_similarity_counts(y_pred, input_sentences, df)
