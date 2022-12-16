@@ -57,9 +57,8 @@ def health(x):
     return False
 
 
-def read_data():
-    # Importing the dataset
-    data_file_path = "train.tsv"        
+def read_data(data_file_path):
+    # Importing the dataset      
 
     df = pd.read_csv(data_file_path, sep='\t')
     df, df_tags = format_tags(df)
@@ -82,8 +81,8 @@ def read_data():
     # Make a copy of the 'text' column
     df['text_original'] = df['text']
 
-    print(f"Shape of df {df.shape}")
-    print(df[-23:])
+    # print(f"Shape of df {df.shape}")
+    # print(df[-23:])
     return df
 
 
@@ -334,11 +333,108 @@ def format_output(input_text, similar_sentence_counter, similar_sentence_to_orig
         outputs.append([similar_sentence, np.mean(scores)])
             
     return outputs
+
+def save_prediction_to_jsonl(input_text, input_text_label, input_sentences, similar_texts_list, output_file_path, train_df):
+    # prediction_dict is a dict that contains
+    #   * `input_text`
+    #   * `original_sentence_index`
+    #   * `similar_sentences_dict`, a dict storing the index of each similar sentence, like {similar_sentence: index}
+    #   * `count_dict`, a dict storing the count of each similar sentence, like {similar_sentence: count}
+    #   * `score_dict`, a dict storing the score of each similar sentence, like {similar_sentence: [list of scores]}. it is a list in case because count can be > 1
+    #   * `label_dict`, a dict storing the label of each similar sentence, like {similar_sentence: label}
+    prediction_dict = {}
+    similar_sentences_dict = {}
+    count_dict = {}
+    score_dict = {}
+    label_dict = {}
+    original_sentence_index = None
+
+    all_similar_sentences = []  # Used for Counter
+
+    for i, result in enumerate(similar_texts_list):
+        original_sentence_index = result[0][0][0]
+        if original_sentence_index == len(input_sentences):
+            original_sentence = input_text
+        else:
+            original_sentence = input_sentences[original_sentence_index]
+
+        similar_sentence_index = result[0][0][1]
+        similar_sentence_data = train_df.iloc[[similar_sentence_index]].values.tolist()[0]
+
+        text_original_column_index = 11
+        label_categorical_column_index = 7
+
+        score = result[1]
+
+        similar_sentence = similar_sentence_data[text_original_column_index]
+        all_similar_sentences.append(similar_sentence)
+
+        label = similar_sentence_data[label_categorical_column_index]
+        label_dict[similar_sentence] = label.lower()
+
+        # Save similar sentence index
+        similar_sentences_dict[similar_sentence] = similar_sentence_index
+        # Save score
+        if similar_sentence in score_dict:
+            score_dict[similar_sentence].append(score)
+        else:
+            score_dict[similar_sentence] = [score]
+        # Update count of this similar sentence
+        if similar_sentence in count_dict:
+            count_dict[similar_sentence] += 1
+        else:
+            count_dict[similar_sentence] = 1
+
+    """ Add stuff to prediction_dict """
+    prediction_dict['input_text'] = input_text
+    prediction_dict['input_text_label'] = input_text_label
+    prediction_dict['original_sentence_index'] = original_sentence_index
+    prediction_dict['similar_sentence_dict'] = similar_sentences_dict
+    prediction_dict['score_dict'] = score_dict
+    prediction_dict['count_dict'] = count_dict
+    prediction_dict['label_dict'] = label_dict
+
+    similar_sentence_counter = Counter(all_similar_sentences)
+    most_common = similar_sentence_counter.most_common()
+
+    prediction_dict['most_common'] = most_common
+
+    print(prediction_dict)
+    print()
+
+    return prediction_dict
+
+
+def evaluate_test_set(X_train, y_train, train_df):
+    test_data_file_path = "test.tsv"
+    test_df = read_data(test_data_file_path)
+
+    k_value = 3
+    preprocess = False
+
+    classifier = KNN_Model(preprocess=preprocess, k=k_value, distance_type='path')
+    classifier.fit(X_train, y_train)
+
+    output_file_path = 'pubhealth_test_predictions.jsonl'
+
+    count = 1
+    for index, row in test_df.iterrows():
+        input_text = row['text']
+        input_sentences = classifier.split_input(input_text)
+        print(f'Getting similar sentences for \"{input_text}\" ({count}/{len(test_df)})')
+        count += 1
+
+        input_text_label = row['label_categorical']
+
+        similar_texts_list = classifier.predict(input_text)
+        # similar_texts_list: [ ((index_of_sentence_in_input, index_of_similar_sentence_in_`dataset`), score), ...]
+
+        return save_prediction_to_jsonl(input_text, input_text_label, input_sentences, similar_texts_list, output_file_path, train_df)
     
 
 def run_knn(input_text, k_value):
     lem = nltk.wordnet.WordNetLemmatizer()
-    df = read_data()
+    df = read_data("train.tsv")
     X_train, y_train, df = preprocess_data(df)
 
     preprocess = False
@@ -349,10 +445,30 @@ def run_knn(input_text, k_value):
 
     y_pred = classifier.predict(input_text)
 
-    similar_sentence_counter, similar_sentence_to_original_sentence_dict = get_similarity_counts(y_pred, input_sentences, df)
-    output = format_output(input_text, similar_sentence_counter, similar_sentence_to_original_sentence_dict)
+    prediction = evaluate_test_set(X_train, y_train, df)
 
-    if len(output) < 3:
-        output.append(["The model was only able to find two similar sources.", ""])
+    output_string = "🚨 ALERT! 🚨 \n HealthAdviceCheckBot here! Here are the top claims that match the potential misinformation above: \n "
+    # for prediction in output:
+    original_statement = prediction['input_text']
+    # print(f"INPUT: {original_statement.strip()}")
+    label_dict = prediction['label_dict']
+    score_dict = prediction['score_dict']
 
-    return output
+    for similar_sentence in label_dict:
+        label = label_dict[similar_sentence]
+        scores = score_dict[similar_sentence]
+        avg_score = sum(scores) / float(len(scores))
+        avg_score_as_percentage = int(avg_score * 100)
+        if label == "true":
+            output_string = "{0} ✅{1}✅ {2}  ({3}% similar to the orignal statement) \n \n".format(output_string, label.upper(), similar_sentence, avg_score_as_percentage)
+        else:
+            output_string = "{0} ❌{1}❌ {2}  ({3}% similar to the orignal statement) \n \n".format(output_string, label.upper(), similar_sentence, avg_score_as_percentage)
+            # print(f'  **{label.upper()}** {similar_sentence}  ({avg_score_as_percentage}%)')
+        # print("\n\n")
+    # similar_sentence_counter, similar_sentence_to_original_sentence_dict = get_similarity_counts(y_pred, input_sentences, df)
+    # output = format_output(input_text, similar_sentence_counter, similar_sentence_to_original_sentence_dict)
+
+    # if len(output) < 3:
+    #     output.append(["The model was only able to find two similar sources.", ""])
+
+    return output_string
