@@ -4,7 +4,7 @@ from collections import Counter
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Process eye gaze data.")
+    parser = argparse.ArgumentParser(description="Evaluate KNN accuracy.")
 
     parser.add_argument(
         "--input_file",
