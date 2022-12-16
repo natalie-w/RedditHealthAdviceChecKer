@@ -123,7 +123,7 @@ function Task1AContainer() {
     // initialize image
     useEffect(() => {
         console.log('getting images')
-        fetch('http://localhost:8080/imageInfo')
+        fetch('http://localhost:8080/modelPrediction')
         .then(response => response.json())
         .then(data => {
             setImageData(data['imgs']);
