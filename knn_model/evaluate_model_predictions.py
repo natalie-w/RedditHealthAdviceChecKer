@@ -43,7 +43,7 @@ def main():
         ### Evaluate on highest scoring sentence label
         score_dict = prediction['score_dict']
         highest_score_for_all_sentences = -1
-        highest_scoring_sentence = ""
+        highest_scoring_sentence = "NONE"
         # Find highest score for each individual similar sentence
         for similar_sentence in score_dict:
             score_list = score_dict[similar_sentence]
@@ -54,6 +54,8 @@ def main():
                 highest_scoring_sentence = similar_sentence
         # Find label for highest scoring sentence
         label_dict = prediction['label_dict']
+        if highest_scoring_sentence == "NONE":
+            highest_scoring_sentence = list(score_dict.keys())[0]
         highest_scoring_sentence_label = label_dict[highest_scoring_sentence]
         if highest_scoring_sentence_label == original_statement_label:
             count_correct_highest_scoring_prediction += 1
