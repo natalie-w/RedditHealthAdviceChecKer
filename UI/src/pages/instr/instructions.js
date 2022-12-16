@@ -13,18 +13,13 @@ function InstructionsContainer() {
         window.location.assign(path);
     }
 
-    const taskA = () => {
+    const redditComments = () => {
         let path = '/#/Task1A';
         window.location.assign(path);
     }
 
-    const taskB = () => {
+    const modelDemo = () => {
         let path = '/#/Task1B';
-        window.location.assign(path);
-    }
-
-    const taskC = () => {
-        let path = '/#/Task1C';
         window.location.assign(path);
     }
 
@@ -56,20 +51,14 @@ function InstructionsContainer() {
         </div>
 
         <div className="text"> 
-            <Button variant="btn btn-success" onClick={taskA}>
-                User Test A
+            <Button variant="btn btn-success" onClick={redditComments}>
+                Reddit Comments
             </Button>
         </div>
 
         <div className="text"> 
-            <Button variant="btn btn-success" onClick={taskB}>
-                User Test B
-            </Button>
-        </div>
-
-        <div className="text"> 
-            <Button variant="btn btn-success" onClick={taskC}>
-                User Test C
+            <Button variant="btn btn-success" onClick={modelDemo}>
+                Model Demo
             </Button>
         </div>
 
