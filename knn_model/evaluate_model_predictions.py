@@ -58,6 +58,8 @@ def main():
         if highest_scoring_sentence_label == original_statement_label:
             count_correct_highest_scoring_prediction += 1
 
+    print(f"Total number of predictions: {total_num_predictions}")
+
     majority_vote_accuracy = count_correct_majority_prediction / float(total_num_predictions)
     print(f'MAJORITY VOTE LABEL accuracy: {majority_vote_accuracy}')
 
