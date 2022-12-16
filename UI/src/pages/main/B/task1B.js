@@ -85,6 +85,7 @@ function Task1AContainer() {
           }
         }).then(response => response.json())
           .then(message => {
+
             setText(message)
           })
       }
@@ -127,7 +128,16 @@ function Task1AContainer() {
             <div className="container">
             <div className="title">Model Demo</div>
                 <h3 id="directionsheader">This section is to further explore our health advice misinformation model.</h3>
-                <p id="directions">1. Add text of your choice to the textbox. <br />2. Press submit. <br />3. See model output. </p>
+                <p id="directions">1. Add text of your choice to the textbox. <br />2. Press submit. <br />3. See model output. <br /><br /> 
+                Consider trying one of the following statements: 
+                <ul> 
+                    <li>Apple cider vinegar can help with everything including diets.</li> 
+                    <li>They are coated in toxic chemicals. Dryer sheets are one of the very worst things from a chemical allergy standpoint.</li> 
+                    <li>Delayed release medication helps manage ADHD symptoms all day.</li> 
+                    <li>There have been no deaths due to vaping. E-cigarettes do not cause any harm, especially to your lungs!</li> 
+                    <li>It is all a lie created by big sunscreen! There is no link between sun exposure and skin cancer.</li> 
+                </ul> 
+                </p>
 
             <div> 
 
@@ -138,8 +148,12 @@ function Task1AContainer() {
               </label>
               <input type="submit" value="Submit" />
             </form>
-            <h1>{text}</h1>
-
+            <div>
+                            <hr></hr>
+                            <PredictionContainer 
+                                currentPrediction={text}
+                            />
+                        </div>
 
             </div>
             </div>
