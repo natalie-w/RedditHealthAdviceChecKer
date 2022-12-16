@@ -8,6 +8,7 @@ import "../main.css";
 import PredictionContainer from '../../../components/predictionContainer'
 
 function Task1AContainer() {
+    const [text, setText] = useState("");
     const [choice, setChoice] = useState(0);
     const [imageData, setImageData] = useState([]);
     const [currentImage, setCurrentImage] = useState("");
@@ -32,6 +33,13 @@ function Task1AContainer() {
     const routeChange = () =>{ 
         let path = '/#/Survey'; 
         window.location.assign(path);
+
+    }
+
+    const sentenceSubmit = (event) =>{ 
+        event.preventDefault();
+        setText("Please be patient, our model is running.");
+        sendData(event.target[0].value).then(setText(event.target[0].value))
 
     }
 
@@ -68,15 +76,8 @@ function Task1AContainer() {
         }
     }
 
-
-    function newTab() {
-            setAnsweredQuestions(true)
-            window.open(
-            "https://forms.gle/PYG7cbrJVbPamjox8", "_blank");
-        }
-
     const sendData = (obj) => {
-        fetch('http://localhost:8080/responsesData', {
+        fetch('http://localhost:8080/modelPrediction', {
           method: 'POST',
           body: JSON.stringify(obj),
           headers: {
@@ -84,30 +85,9 @@ function Task1AContainer() {
           }
         }).then(response => response.json())
           .then(message => {
-            console.log(message)
+            setText(message)
           })
-      } 
-
-
-    const onChangeMultiple= e => {
-        setChoice(e.target.value);
-    };
-
-    const togglePopup = () => {
-    setIsOpen(!isOpen);
-    setChoice(1)
-  }
-
-    const [agree, setAgree] = useState(false);
-
-    const handlePredict=()=>{
-        setShowPrediction(true);
-        setShowSurvey(true);
-    };
-
-        const checkboxHandler = () => {
-        setAgree(!agree);
-    }
+      }
 
 
     // testing communication with backend
@@ -145,69 +125,24 @@ function Task1AContainer() {
        {render ?
 
             <div className="container">
-            <div className="title">Experiment B</div>
-                <h3 id="directionsheader">Imagine you are scrolling through Reddit looking for a solution to a health problem you are currently experiencing.</h3>
-                <p id="directions">1. Read the Reddit post. <br />2. Read the comment. <br />3. Call the bot by typing '!healthadvicecheckbot'. <br />4. Read the bot's response. <br />5. Fill out the survey.  <br />6. Click the Continue button.</p>
+            <div className="title">Model Demo</div>
+                <h3 id="directionsheader">This section is to further explore our health advice misinformation model.</h3>
+                <p id="directions">1. Add text of your choice to the textbox. <br />2. Press submit. <br />3. See model output. </p>
 
-            <div className="column-container"> 
+            <div> 
 
-            <div className="left-column"> 
-                
-                
-
-                <div className="img-frame">
-                    <p class="username"> Posted by user123 </p>
-                    <h3 id="posttitle"> <b> {currentTitle} </b> </h3> 
-                    <p id="posttext"> {currentPost} </p>
-                    <hr></hr>
-                    <p class="username"> Commented by user789</p>
-                    <p id="comment"> {currentComment} </p>
-                    <hr></hr>
-                    <p class="username"> Writing a comment...</p>
-                    <input type="text" id="textbox" placeholder="!healthadvicecheckbot" name="typedtext"></input>
-                    <Button className="btn-2" id="replybutton" onClick={()=>{handlePredict()}}>
-                       Reply
-                    </Button> 
-
-                    { showPrediction ?
-                        <div>
-                            <hr></hr>
-                            <p class="username">Commented by HealthAdviceCheckBot</p>
-                            <PredictionContainer 
-                                currentPrediction={currentPrediction}
-                            />
-                        </div>
-                    :
-                        <>
-                        </>
-
-                    }
-
-            <div> </div>
-
-
-            
-
-                </div>
-                <p> {imageCount + 1} / {totalImages} </p>
+            <form onSubmit={sentenceSubmit}>
+              <label>
+                Input Sentence:
+                <input type="text" placeholder="Bleach is a good treatment for Covid-19." name="name" style={{ width:"600px" }}/>
+              </label>
+              <input type="submit" value="Submit" />
+            </form>
+            <h1>{text}</h1>
 
 
             </div>
-
-            <div className="right-column"> 
-            {showSurvey ? 
-                <div> 
-                    <div className="button-container"> 
-                    <Button variant="btn btn-success"  style={{marginLeft:"70%"}}  onClick={nextChange}>
-                        Continue
-                    </Button>
-                    </div>
-                    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc2bYBWnfJDHVMm4bzyyZAckcDRnb4rTZ_XuPKrtObVVmNuEg/viewform?embedded=true" width="640" height="902" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>  
-                </div>
-            : null}
-                </div>
-                </div>
-                </div>
+            </div>
 
 
             :
